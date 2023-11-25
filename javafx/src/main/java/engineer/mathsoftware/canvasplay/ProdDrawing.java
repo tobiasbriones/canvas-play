@@ -4,7 +4,13 @@
 
 package engineer.mathsoftware.canvasplay;
 
+import javafx.scene.canvas.GraphicsContext;
+
 /***
  * Defines production high-level drawing APIs for the {@link ProdCanvas}.
  */
-public interface ProdDrawing {}
+public interface ProdDrawing {
+    ProdCanvas canvas();
+
+    GraphicsContext cxt();
+}
