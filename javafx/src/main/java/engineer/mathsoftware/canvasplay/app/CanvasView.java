@@ -2,9 +2,8 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // This file is part of https://github.com/tobiasbriones/canvas-playground
 
-package engineer.mathsoftware.canvasplay;
+package engineer.mathsoftware.canvasplay.app;
 
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
