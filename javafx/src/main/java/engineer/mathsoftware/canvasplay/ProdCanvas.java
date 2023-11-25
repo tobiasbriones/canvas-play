@@ -9,4 +9,12 @@ package engineer.mathsoftware.canvasplay;
  * professional productions like images and animations with scaling for
  * custom resolutions, etc.
  */
-public interface ProdCanvas {}
+public interface ProdCanvas {
+    double width();
+
+    double height();
+
+    double cx();
+
+    double cy();
+}
