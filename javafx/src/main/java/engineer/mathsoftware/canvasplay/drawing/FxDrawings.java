@@ -5,6 +5,7 @@
 package engineer.mathsoftware.canvasplay.drawing;
 
 import engineer.mathsoftware.canvasplay.shape.Oval;
+import engineer.mathsoftware.canvasplay.shape.Quadrilateral;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
@@ -18,30 +19,43 @@ final class FxDrawings {
         @Override
         public OvalDrawing oval(Oval oval) {
             return switch (oval) {
-                case Circle circle ->
-                    new CircleDrawing(
-                        ctx,
-                        circle.radius(),
-                        circle.cx(),
-                        circle.cy(),
-                        circle.diameter()
-                    );
-                case Arc arc ->
-                    new ArcDrawing(
-                        ctx,
-                        arc.radiusX(),
-                        arc.radiusY(),
-                        arc.cx(),
-                        arc.cy(),
-                        arc.diameterX(),
-                        arc.diameterY()
-                    );
+                case Circle circle -> new CircleDrawing(
+                    ctx,
+                    circle.radius(),
+                    circle.cx(),
+                    circle.cy(),
+                    circle.diameter()
+                );
+                case Arc arc -> new ArcDrawing(
+                    ctx,
+                    arc.radiusX(),
+                    arc.radiusY(),
+                    arc.cx(),
+                    arc.cy(),
+                    arc.diameterX(),
+                    arc.diameterY()
+                );
             };
         }
 
         @Override
-        public List<OvalDrawing> ovals(Oval ...ovals) {
+        public List<OvalDrawing> ovals(Oval... ovals) {
             return Arrays.stream(ovals).map(this::oval).toList();
+        }
+
+        @Override
+        public QuadrilateralDrawing quadrilateral(Quadrilateral quadrilateral) {
+            return switch (quadrilateral) {
+                case Quadrilateral.RoundRect roundRect -> new RoundRectDrawing(
+                    ctx,
+                    roundRect.width(),
+                    roundRect.height(),
+                    roundRect.arcX(),
+                    roundRect.arcY(),
+                    roundRect.cx(),
+                    roundRect.cy()
+                );
+            };
         }
     }
 
@@ -84,6 +98,42 @@ final class FxDrawings {
         public void stroke(Paint color) {
             ctx.setStroke(color);
             ctx.strokeOval(cx - radiusX, cy - radiusY, diameterX, diameterY);
+        }
+    }
+
+    record RoundRectDrawing(
+        GraphicsContext ctx,
+        double width,
+        double height,
+        double arcX,
+        double arcY,
+        double cx,
+        double cy
+    ) implements QuadrilateralDrawing {
+        @Override
+        public void fill(Paint color) {
+            ctx.setFill(color);
+            ctx.fillRoundRect(
+                cx,
+                cy,
+                width,
+                height,
+                arcX,
+                arcY
+            );
+        }
+
+        @Override
+        public void stroke(Paint color) {
+            ctx.setStroke(color);
+            ctx.strokeRoundRect(
+                cx,
+                cy,
+                width,
+                height,
+                arcX,
+                arcY
+            );
         }
     }
 

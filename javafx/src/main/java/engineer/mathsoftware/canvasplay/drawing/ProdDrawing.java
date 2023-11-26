@@ -5,6 +5,7 @@
 package engineer.mathsoftware.canvasplay.drawing;
 
 import engineer.mathsoftware.canvasplay.shape.Oval;
+import engineer.mathsoftware.canvasplay.shape.Quadrilateral;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.List;
@@ -15,6 +16,8 @@ public interface ProdDrawing {
     }
 
     OvalDrawing oval(Oval oval);
+
+    QuadrilateralDrawing quadrilateral(Quadrilateral quadrilateral);
 
     List<OvalDrawing> ovals(Oval ...ovals);
 }
