@@ -6,13 +6,10 @@ package engineer.mathsoftware.canvasplay.app;
 
 import engineer.mathsoftware.canvasplay.FxProdCanvas;
 import engineer.mathsoftware.canvasplay.ProdCanvas;
-import engineer.mathsoftware.canvasplay.drawing.OvalDrawing;
-import engineer.mathsoftware.canvasplay.drawing.ProdDrawing;
-import engineer.mathsoftware.canvasplay.drawing.QuadrilateralDrawing;
-import engineer.mathsoftware.canvasplay.shape.Oval;
-import engineer.mathsoftware.canvasplay.shape.Quadrilateral;
+import engineer.mathsoftware.canvasplay.shape.drawing.OvalDrawing;
+import engineer.mathsoftware.canvasplay.shape.drawing.ProdDrawing;
+import engineer.mathsoftware.canvasplay.shape.drawing.QuadrilateralDrawing;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import static engineer.mathsoftware.canvasplay.shape.Oval.*;
