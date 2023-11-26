@@ -4,6 +4,7 @@
 
 package engineer.mathsoftware.canvasplay.shape.drawing;
 
+import engineer.mathsoftware.canvasplay.shape.Line;
 import engineer.mathsoftware.canvasplay.shape.Oval;
 import engineer.mathsoftware.canvasplay.shape.Quadrilateral;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,10 +13,36 @@ import javafx.scene.paint.Paint;
 import java.util.Arrays;
 import java.util.List;
 
+import static engineer.mathsoftware.canvasplay.shape.Line.*;
 import static engineer.mathsoftware.canvasplay.shape.Oval.*;
 
 final class FxDrawings {
     record Drawing(GraphicsContext ctx) implements ProdDrawing {
+        @Override
+        public LineDrawing line(Line line) {
+            return switch (line) {
+                case Segment segment -> new SegmentDrawing(
+                    ctx,
+                    segment.sx(),
+                    segment.sy(),
+                    segment.ex(),
+                    segment.ey()
+                );
+                case HSegment hSegment -> new HSegmentDrawing(
+                    ctx,
+                    hSegment.cx(),
+                    hSegment.cy(),
+                    hSegment.radius()
+                );
+                case VSegment vSegment -> new HSegmentDrawing(
+                    ctx,
+                    vSegment.cx(),
+                    vSegment.cy(),
+                    vSegment.radius()
+                );
+            };
+        }
+
         @Override
         public OvalDrawing oval(Oval oval) {
             return switch (oval) {
@@ -56,6 +83,46 @@ final class FxDrawings {
                     roundRect.cy()
                 );
             };
+        }
+    }
+
+    record SegmentDrawing(
+        GraphicsContext ctx,
+        double sx,
+        double sy,
+        double ex,
+        double ey
+    ) implements LineDrawing {
+        @Override
+        public void stroke(Paint color) {
+            ctx.setStroke(color);
+            ctx.strokeLine(sx, sy, ex, ey);
+        }
+    }
+
+    record HSegmentDrawing(
+        GraphicsContext ctx,
+        double cx,
+        double cy,
+        double radius
+    ) implements LineDrawing {
+        @Override
+        public void stroke(Paint color) {
+            ctx.setStroke(color);
+            ctx.strokeLine(cx - radius, cy, cx + radius, cy);
+        }
+    }
+
+    record VSegmentDrawing(
+        GraphicsContext ctx,
+        double cx,
+        double cy,
+        double radius
+    ) implements LineDrawing {
+        @Override
+        public void stroke(Paint color) {
+            ctx.setStroke(color);
+            ctx.strokeLine(cx, cy - radius, cx, cy + radius);
         }
     }
 

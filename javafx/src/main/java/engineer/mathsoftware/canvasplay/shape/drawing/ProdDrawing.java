@@ -4,6 +4,7 @@
 
 package engineer.mathsoftware.canvasplay.shape.drawing;
 
+import engineer.mathsoftware.canvasplay.shape.Line;
 import engineer.mathsoftware.canvasplay.shape.Oval;
 import engineer.mathsoftware.canvasplay.shape.Quadrilateral;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,9 +16,11 @@ public interface ProdDrawing {
         return new FxDrawings.Drawing(ctx);
     }
 
+    LineDrawing line(Line line);
+
     OvalDrawing oval(Oval oval);
 
     QuadrilateralDrawing quadrilateral(Quadrilateral quadrilateral);
 
-    List<OvalDrawing> ovals(Oval ...ovals);
+    List<OvalDrawing> ovals(Oval... ovals);
 }
