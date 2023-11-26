@@ -4,7 +4,9 @@
 
 package engineer.mathsoftware.canvasplay;
 
-/***
+import javafx.scene.canvas.GraphicsContext;
+
+/**
  * Defines a production level Canvas useful for building relatively
  * professional productions like images and animations with scaling for
  * custom resolutions, etc.
@@ -17,4 +19,6 @@ public interface ProdCanvas {
     double cx();
 
     double cy();
+
+    GraphicsContext ctx();
 }
