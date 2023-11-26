@@ -9,7 +9,11 @@ public sealed interface Oval {
         double radius,
         double cx,
         double cy
-    ) implements Oval {}
+    ) implements Oval {
+        public double diameter() {
+            return 2.0 * radius;
+        }
+    }
 
     record Arc(
         double radiusX,
