@@ -8,6 +8,9 @@ import engineer.mathsoftware.canvasplay.shape.Oval;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static engineer.mathsoftware.canvasplay.shape.Oval.*;
 
 final class FxDrawings {
@@ -34,6 +37,11 @@ final class FxDrawings {
                         arc.diameterY()
                     );
             };
+        }
+
+        @Override
+        public List<OvalDrawing> ovals(Oval ...ovals) {
+            return Arrays.stream(ovals).map(this::oval).toList();
         }
     }
 
