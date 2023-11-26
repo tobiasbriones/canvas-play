@@ -20,5 +20,13 @@ public sealed interface Oval {
         double radiusY,
         double cx,
         double cy
-    ) implements Oval {}
+    ) implements Oval {
+        public double diameterX() {
+            return 2.0 * radiusX;
+        }
+
+        public double diameterY() {
+            return 2.0 * radiusY;
+        }
+    }
 }
