@@ -4,74 +4,67 @@
 
 package engineer.mathsoftware.canvasplay.app;
 
+import engineer.mathsoftware.canvasplay.FxProdCanvas;
+import engineer.mathsoftware.canvasplay.ProdCanvas;
+import engineer.mathsoftware.canvasplay.drawing.OvalDrawing;
+import engineer.mathsoftware.canvasplay.drawing.ProdDrawing;
+import engineer.mathsoftware.canvasplay.drawing.QuadrilateralDrawing;
+import engineer.mathsoftware.canvasplay.shape.Oval;
+import engineer.mathsoftware.canvasplay.shape.Quadrilateral;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import static engineer.mathsoftware.canvasplay.shape.Oval.*;
+import static engineer.mathsoftware.canvasplay.shape.Quadrilateral.*;
+
 class Playground {
     static final Color bgColor = Color.web("#fafafa");
-    final Canvas canvas;
-    final GraphicsContext ctx;
-    final double scale;
-
-    double width() { return canvas.getWidth(); }
-
-    double height() { return canvas.getHeight(); }
-
-    double cx() { return width() / 2; }
-
-    double cy() { return height() / 2; }
-
-    Playground(Canvas canvas, double scale) {
-        this.canvas = canvas;
-        this.scale = scale;
-        this.ctx = canvas.getGraphicsContext2D();
-    }
-
     // Draw a Flower
     final int radius = 40;
     final Color color = Color.GOLDENROD;
+    ProdCanvas canvas;
+    ProdDrawing drawing;
+
+    Playground(Canvas canvas, double scale) {
+        this.canvas = new FxProdCanvas(canvas, scale);
+        this.drawing = ProdDrawing.of(canvas.getGraphicsContext2D());
+    }
+
+    OvalDrawing flowerCenterDrawing() {
+        return drawing.oval(new Circle(radius / 2, canvas.cx(), canvas.cy()));
+    }
+
+    QuadrilateralDrawing stemDrawing() {
+        var stemWidth = radius / 4.0;
+        return drawing.quadrilateral(new RoundRect(
+            stemWidth,
+            16,
+            16,
+            radius * 2.5,
+            canvas.cx() - stemWidth / 2,
+            canvas.cy()
+        ));
+    }
 
     void play() {
-        var stemWidth = radius / 4;
-
         // Flower Stem
-        ctx.setFill(Color.web("#81c784"));
-        ctx.fillRoundRect(
-            cx() - stemWidth / 2,
-            cy(),
-            stemWidth,
-            radius * 2.5,
-            16,
-            16
-        );
+        stemDrawing().fill(Color.web("#81c784"));
 
         // Petal
-        ctx.setFill(Color.CORAL);
         fillPetals();
-        ctx.setFill(Color.AQUAMARINE);
-        fillCenteredCircle(radius / 2, cx(), cy(), Color.AQUAMARINE);
+        flowerCenterDrawing().fill(Color.AQUAMARINE);
     }
 
     void fillPetals() {
-        var cx = cx();
-        var cy = cy();
+        var cx = canvas.cx();
+        var cy = canvas.cy();
 
-        fillCenteredCircle(radius, cx - radius / 2, cy, color);
-        fillCenteredCircle(radius, cx, cy - radius / 2, color);
-        fillCenteredCircle(radius, cx + radius / 2, cy, color);
-        fillCenteredCircle(radius, cx, cy + radius / 2, color);
-    }
-
-    void fillCenteredCircle(
-        double radius,
-        double cx,
-        double cy,
-        Color color
-    ) {
-        var diameter = 2.0 * radius;
-
-        ctx.setFill(color);
-        ctx.fillOval(cx - radius, cy - radius, diameter, diameter);
+        drawing.ovals(
+            new Circle(radius, cx - radius / 2, cy),
+            new Circle(radius, cx, cy - radius / 2),
+            new Circle(radius, cx + radius / 2, cy),
+            new Circle(radius, cx, cy + radius / 2)
+        ).forEach(ovalDrawing -> ovalDrawing.fill(color));
     }
 }
