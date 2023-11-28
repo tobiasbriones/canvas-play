@@ -10,8 +10,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class CanvasApp {
-    public static final double WINDOW_WIDTH = 1360.0;
-    public static final double WINDOW_HEIGHT = 640.0;
+    public static final double WINDOW_WIDTH = 600.0;
+    public static final double WINDOW_HEIGHT = 600.0;
 
     final Canvas canvas;
 
