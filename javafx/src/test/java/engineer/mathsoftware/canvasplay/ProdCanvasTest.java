@@ -4,17 +4,18 @@
 
 package engineer.mathsoftware.canvasplay;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ProdCanvasTest extends CanvasTest {
+class ProdCanvasTest extends CanvasTest {
     @Test
-    public void create() {
+    void create() {
         var prodCanvas = new FxProdCanvas(canvas, 1.0);
 
-        assertThat(prodCanvas.width(), is(CanvasApp.WINDOW_WIDTH));
-        assertThat(prodCanvas.height(), is(CanvasApp.WINDOW_HEIGHT));
+        assertThat(prodCanvas.width(), is(canvas.getWidth()));
+        assertThat(prodCanvas.height(), is(canvas.getHeight()));
     }
 }
