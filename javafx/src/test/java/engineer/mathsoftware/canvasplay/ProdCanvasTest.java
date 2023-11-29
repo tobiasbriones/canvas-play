@@ -13,9 +13,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 class ProdCanvasTest extends CanvasTest {
     @Test
     void createProdCanvas() {
-        var prodCanvas = new FxProdCanvas(canvas, 1.0);
+        actualCanvas(canvas -> {
+            var prodCanvas = new FxProdCanvas(canvas, 1.0);
 
-        assertThat(prodCanvas.width(), is(canvas.getWidth()));
-        assertThat(prodCanvas.height(), is(canvas.getHeight()));
+            assertThat(prodCanvas.width(), is(canvas.getWidth()));
+            assertThat(prodCanvas.height(), is(canvas.getHeight()));
+        });
     }
 }
