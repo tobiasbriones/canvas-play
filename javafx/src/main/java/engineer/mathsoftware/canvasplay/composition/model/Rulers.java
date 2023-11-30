@@ -9,15 +9,15 @@ import java.util.Optional;
 public final class Rulers {
     public record Ruler(double width, double height) {}
 
-    public record RulerSegment(
-        RulerSegmentOrientation orientation,
+    public record Measure(
+        MeasureOrientation orientation,
         double radius,
         double cx,
         double cy,
         Optional<String> text
     ) {}
 
-    public enum RulerSegmentOrientation {
+    public enum MeasureOrientation {
         HRuler, VRuler
     }
 
