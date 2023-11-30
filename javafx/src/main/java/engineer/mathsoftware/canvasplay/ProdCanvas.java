@@ -6,10 +6,13 @@ package engineer.mathsoftware.canvasplay;
 
 import javafx.scene.canvas.GraphicsContext;
 
+import java.util.function.BiFunction;
+import java.util.function.Function;
+
 /**
- * Defines a production level Canvas useful for building relatively
- * professional productions like images and animations with scaling for
- * custom resolutions, etc.
+ * Defines a production level Canvas useful for building relatively professional
+ * productions like images and animations with scaling for custom resolutions,
+ * etc.
  */
 public interface ProdCanvas {
     double width();
@@ -21,4 +24,10 @@ public interface ProdCanvas {
     double cy();
 
     GraphicsContext ctx();
+
+    default <D, T> Function<T, D> drawingCtx(
+        BiFunction<? super GraphicsContext, ? super T, ? extends D> cons
+    ) {
+        return shape -> cons.apply(ctx(), shape);
+    }
 }
