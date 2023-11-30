@@ -4,7 +4,7 @@
 
 package engineer.mathsoftware.canvasplay.shape;
 
-public sealed interface Oval {
+public sealed interface Oval extends Shape {
     record Circle(
         double radius,
         double cx,
@@ -12,6 +12,11 @@ public sealed interface Oval {
     ) implements Oval {
         public double diameter() {
             return 2.0 * radius;
+        }
+
+        @Override
+        public double area() {
+            return Math.PI * radius * radius;
         }
     }
 
@@ -27,6 +32,11 @@ public sealed interface Oval {
 
         public double diameterY() {
             return 2.0 * radiusY;
+        }
+
+        @Override
+        public double area() {
+            return Math.PI * radiusX * radiusY;
         }
     }
 }

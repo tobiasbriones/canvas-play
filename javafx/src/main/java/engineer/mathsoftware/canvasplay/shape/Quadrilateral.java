@@ -4,7 +4,7 @@
 
 package engineer.mathsoftware.canvasplay.shape;
 
-public sealed interface Quadrilateral {
+public sealed interface Quadrilateral extends Shape {
     record RoundRect(
         double width,
         double height,
@@ -12,5 +12,12 @@ public sealed interface Quadrilateral {
         double arcY,
         double cx,
         double cy
-    ) implements Quadrilateral {}
+    ) implements Quadrilateral {
+        @Override
+        public double area() {
+            // TODO take borders into account if necessary, not a useful
+            // feature so far
+            return width * height;
+        }
+    }
 }
