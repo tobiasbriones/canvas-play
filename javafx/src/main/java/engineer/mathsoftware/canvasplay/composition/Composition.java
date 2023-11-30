@@ -4,22 +4,22 @@
 
 package engineer.mathsoftware.canvasplay.composition;
 
-import engineer.mathsoftware.canvasplay.caption.Caption;
-
 import java.util.Optional;
 
+import static engineer.mathsoftware.canvasplay.composition.caption.Caption.*;
+
 interface Composition {
-    default Caption.Title home() {
-        return new Caption.Title("dev | mathsoftware.engineer");
+    default Title home() {
+        return new Title("dev | mathsoftware.engineer");
     }
 
-    default Optional<Caption.Title> subHome() {
+    default Optional<Title> subHome() {
         return Optional.of(
-            new Caption.Title(
+            new Title(
                 "Canvas Playground"
             )
         );
     }
 
-    Caption.Title title();
+    Title title();
 }
