@@ -15,7 +15,7 @@ public sealed interface Oval {
         }
     }
 
-    record Arc(
+    record Ellipse(
         double radiusX,
         double radiusY,
         double cx,
