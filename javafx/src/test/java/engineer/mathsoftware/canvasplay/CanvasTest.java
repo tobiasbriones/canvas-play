@@ -4,13 +4,22 @@
 
 package engineer.mathsoftware.canvasplay;
 
+import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.testfx.framework.junit5.ApplicationTest;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.concurrent.CountDownLatch;
 import java.util.function.Consumer;
 
 import static engineer.mathsoftware.canvasplay.CanvasMatchers.hasDrawing;
@@ -18,10 +27,9 @@ import static org.testfx.api.FxAssert.verifyThat;
 
 public class CanvasTest extends ApplicationTest {
     private static final double WINDOW_WIDTH = 800.0;
+    protected static final double CANVAS_WIDTH = WINDOW_WIDTH / 2.0;
     private static final double WINDOW_HEIGHT = WINDOW_WIDTH / 2.0;
     protected static final double CANVAS_HEIGHT = WINDOW_HEIGHT;
-    protected static final double CANVAS_WIDTH = WINDOW_WIDTH / 2.0;
-
     private final Canvas actual;
     private final Canvas expected;
 
@@ -98,5 +106,37 @@ public class CanvasTest extends ApplicationTest {
      */
     protected final void expected(Consumer<? super GraphicsContext> interactExpected) {
         interact(() -> interactExpected.accept(expected.getGraphicsContext2D()));
+    }
+
+    /**
+     * It saves the snapshots of both actual and expected canvases in their
+     * current state. The saving directory is the "snapshot" subdirectory of the
+     * root of this project. That is, Path.of("", "snapshot", name).
+     */
+    protected void save(String name) {
+        interact(() -> {
+            var dir = Path.of("", "snapshot", name);
+            var actualSnapshot = actual.snapshot(null, null);
+            var expectedSnapshot = expected.snapshot(null, null);
+
+            savePngImage(dir.resolve("actual.png"), actualSnapshot);
+            savePngImage(dir.resolve("expected.png"), expectedSnapshot);
+        });
+    }
+
+    private static void savePngImage(Path path, WritableImage image) {
+        try {
+            var bufferedImage = SwingFXUtils.fromFXImage(image, null);
+
+            if (Files.isRegularFile(path)) {
+                Files.deleteIfExists(path);
+            }
+            Files.createDirectories(path);
+
+            ImageIO.write(bufferedImage, "png", path.toFile());
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
