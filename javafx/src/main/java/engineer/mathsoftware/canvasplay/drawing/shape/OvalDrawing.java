@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // This file is part of https://github.com/tobiasbriones/canvas-playground
 
-package engineer.mathsoftware.canvasplay.shape.drawing;
+package engineer.mathsoftware.canvasplay.drawing.shape;
 
 import engineer.mathsoftware.canvasplay.shape.Oval;
 import javafx.scene.canvas.GraphicsContext;
 
 import static engineer.mathsoftware.canvasplay.shape.Oval.*;
-import static engineer.mathsoftware.canvasplay.shape.drawing.CanvasOvalDrawing.*;
+import static engineer.mathsoftware.canvasplay.drawing.shape.CanvasOvalDrawing.*;
 
 public interface OvalDrawing extends CommonDrawings.CommonDrawing {
     static OvalDrawing of(GraphicsContext ctx, Oval oval) {

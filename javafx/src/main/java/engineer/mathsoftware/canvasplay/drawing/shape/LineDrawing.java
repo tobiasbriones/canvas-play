@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // This file is part of https://github.com/tobiasbriones/canvas-playground
 
-package engineer.mathsoftware.canvasplay.shape.drawing;
+package engineer.mathsoftware.canvasplay.drawing.shape;
 
 import engineer.mathsoftware.canvasplay.shape.Line;
 import javafx.scene.canvas.GraphicsContext;
 
 import static engineer.mathsoftware.canvasplay.shape.Line.*;
-import static engineer.mathsoftware.canvasplay.shape.drawing.CanvasLineDrawing.*;
+import static engineer.mathsoftware.canvasplay.drawing.shape.CanvasLineDrawing.*;
 
 public interface LineDrawing extends CommonDrawings.Stroke {
     static LineDrawing of(GraphicsContext ctx, Line line) {
