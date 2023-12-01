@@ -26,7 +26,7 @@ public interface LineDrawing extends CommonDrawings.Stroke {
                 hSegment.cy(),
                 hSegment.radius()
             );
-            case VSegment vSegment -> new HSegmentDrawing(
+            case VSegment vSegment -> new VSegmentDrawing(
                 ctx,
                 vSegment.cx(),
                 vSegment.cy(),
