@@ -4,4 +4,8 @@
 
 package engineer.mathsoftware.canvasplay.drawing.shape;
 
-public interface QuadrilateralDrawing extends CommonDrawings.CommonDrawing {}
+public final class QuadrilateralDrawings {
+    public interface QuadrilateralDrawing extends CommonDrawings.CommonDrawing {}
+
+    private QuadrilateralDrawings() { }
+}
