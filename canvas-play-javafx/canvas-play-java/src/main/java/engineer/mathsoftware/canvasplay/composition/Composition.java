@@ -4,22 +4,4 @@
 
 package engineer.mathsoftware.canvasplay.composition;
 
-import java.util.Optional;
-
-import static engineer.mathsoftware.canvasplay.composition.caption.Caption.*;
-
-interface Composition extends CompositionMetrics {
-    default Title home() {
-        return new Title("dev | mathsoftware.engineer");
-    }
-
-    default Optional<Title> subHome() {
-        return Optional.of(
-            new Title(
-                "Canvas Playground"
-            )
-        );
-    }
-
-    Title title();
-}
+interface Composition extends CompositionMetrics {}
