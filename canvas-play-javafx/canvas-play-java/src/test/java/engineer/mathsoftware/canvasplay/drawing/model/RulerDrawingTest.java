@@ -6,10 +6,7 @@ package engineer.mathsoftware.canvasplay.drawing.model;
 
 import engineer.mathsoftware.canvasplay.CanvasTest;
 import engineer.mathsoftware.canvasplay.FxProdCanvas;
-import engineer.mathsoftware.canvasplay.composition.model.Rulers;
-import engineer.mathsoftware.canvasplay.drawing.shape.LineDrawing;
 import engineer.mathsoftware.canvasplay.drawing.shape.OvalDrawing;
-import engineer.mathsoftware.canvasplay.shape.Oval;
 import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import org.junit.jupiter.api.Test;
@@ -19,7 +16,6 @@ import java.util.Optional;
 import static engineer.mathsoftware.canvasplay.composition.model.Rulers.*;
 import static engineer.mathsoftware.canvasplay.drawing.model.CanvasStates.*;
 import static engineer.mathsoftware.canvasplay.drawing.model.RulerDrawings.*;
-import static engineer.mathsoftware.canvasplay.shape.Line.Segment;
 import static engineer.mathsoftware.canvasplay.shape.Oval.*;
 
 class RulerDrawingTest extends CanvasTest {

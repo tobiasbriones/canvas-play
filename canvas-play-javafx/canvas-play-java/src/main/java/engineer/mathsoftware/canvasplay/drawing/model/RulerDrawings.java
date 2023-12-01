@@ -5,7 +5,7 @@
 package engineer.mathsoftware.canvasplay.drawing.model;
 
 import engineer.mathsoftware.canvasplay.ProdCanvas;
-import engineer.mathsoftware.canvasplay.drawing.shape.LineDrawing;
+import engineer.mathsoftware.canvasplay.drawing.shape.LineDrawings.LineDrawing;
 import engineer.mathsoftware.canvasplay.shape.Line;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;

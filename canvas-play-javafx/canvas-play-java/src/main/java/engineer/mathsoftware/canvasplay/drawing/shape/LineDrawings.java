@@ -4,10 +4,39 @@
 
 package engineer.mathsoftware.canvasplay.drawing.shape;
 
+import engineer.mathsoftware.canvasplay.shape.Line;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
-final class CanvasLineDrawing {
+import static engineer.mathsoftware.canvasplay.shape.Line.*;
+
+public final class LineDrawings {
+    public interface LineDrawing extends CommonDrawings.Stroke {
+        static LineDrawing of(GraphicsContext ctx, Line line) {
+            return switch (line) {
+                case Segment segment -> new SegmentDrawing(
+                    ctx,
+                    segment.sx(),
+                    segment.sy(),
+                    segment.ex(),
+                    segment.ey()
+                );
+                case HSegment hSegment -> new HSegmentDrawing(
+                    ctx,
+                    hSegment.cx(),
+                    hSegment.cy(),
+                    hSegment.radius()
+                );
+                case VSegment vSegment -> new VSegmentDrawing(
+                    ctx,
+                    vSegment.cx(),
+                    vSegment.cy(),
+                    vSegment.radius()
+                );
+            };
+        }
+    }
+
     record SegmentDrawing(
         GraphicsContext ctx,
         double sx,
@@ -48,5 +77,5 @@ final class CanvasLineDrawing {
         }
     }
 
-    private CanvasLineDrawing() {}
+    private LineDrawings() { }
 }

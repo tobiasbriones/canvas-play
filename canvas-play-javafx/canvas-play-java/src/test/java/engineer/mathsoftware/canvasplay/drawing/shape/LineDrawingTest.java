@@ -9,6 +9,7 @@ import engineer.mathsoftware.canvasplay.FxProdCanvas;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
+import static engineer.mathsoftware.canvasplay.drawing.shape.LineDrawings.*;
 import static engineer.mathsoftware.canvasplay.shape.Line.Segment;
 
 class LineDrawingTest extends CanvasTest {
