@@ -4,12 +4,19 @@
 
 package engineer.mathsoftware.canvasplay.drawing.model;
 
+import engineer.mathsoftware.canvasplay.ProdCanvas;
+import engineer.mathsoftware.canvasplay.drawing.shape.LineDrawing;
+import engineer.mathsoftware.canvasplay.shape.Line;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
-import static engineer.mathsoftware.canvasplay.composition.model.Rulers.Ruler;
+import java.util.List;
+import java.util.Optional;
+
+import static engineer.mathsoftware.canvasplay.composition.model.Rulers.*;
+import static engineer.mathsoftware.canvasplay.shape.Line.*;
 
 public final class RulerDrawings {
     public interface RulerDrawing {
@@ -18,6 +25,47 @@ public final class RulerDrawings {
         static RulerDrawing of(GraphicsContext ctx, Ruler ruler) {
             return new CanvasRulerDrawing(
                 ctx, (int) ruler.width(), (int) ruler.height()
+            );
+        }
+    }
+
+    public interface MeasureDrawing {
+        void draw(Color segmentColor);
+
+        static MeasureDrawing of(ProdCanvas canvas, Measure ruler) {
+            var cx = ruler.cx();
+            var cy = ruler.cy();
+            var radius = ruler.radius();
+            var lines = switch (ruler.orientation()) {
+                case HRuler -> List.<Line>of(
+                    new HSegment(cx, cy, radius),
+                    new Segment(
+                        cx - radius, 0.0, cx - radius, cy + radius
+                    ),
+                    new Segment(
+                        cx + radius, 0.0, cx + radius, cy + radius
+                    )
+                );
+                case VRuler -> List.<Line>of(
+                    new VSegment(cx, cy, radius),
+                    new Segment(
+                        0.0, cy - radius, cx + radius, cy - radius
+                    ),
+                    new Segment(
+                        0.0, cy + radius, cx + radius, cy + radius
+                    )
+                );
+            };
+            var drawingCtx = canvas.drawingCtx(LineDrawing::of);
+            var lineDrawings = lines.stream().map(drawingCtx).toList();
+
+            return new CanvasMeasureDrawing(
+                canvas.ctx(),
+                ruler.orientation(),
+                lineDrawings,
+                cx,
+                cy,
+                ruler.text()
             );
         }
     }
@@ -66,6 +114,35 @@ public final class RulerDrawings {
                     ctx.strokeLine(16.0, y, 28.0, y);
                 }
             }
+        }
+    }
+
+    record CanvasMeasureDrawing(
+        GraphicsContext ctx,
+        MeasureOrientation orientation,
+        List<LineDrawing> lines,
+        double cx,
+        double cy,
+        Optional<String> text
+    ) implements MeasureDrawing {
+        @Override
+        public void draw(Color segmentColor) {
+            lines.forEach(lineDrawing -> lineDrawing.stroke(segmentColor));
+
+            text.ifPresent(txt -> {
+                switch (orientation) {
+                    case HRuler -> {
+                        ctx.setTextAlign(TextAlignment.CENTER);
+                        ctx.setTextBaseline(VPos.TOP);
+                        ctx.fillText(txt, cx, cy + 4.0);
+                    }
+                    case VRuler -> {
+                        ctx.setTextAlign(TextAlignment.LEFT);
+                        ctx.setTextBaseline(VPos.CENTER);
+                        ctx.fillText(txt, cx + 4.0, cy);
+                    }
+                }
+            });
         }
     }
 
