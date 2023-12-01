@@ -6,6 +6,7 @@ package engineer.mathsoftware.canvasplay.drawing.shape;
 
 import engineer.mathsoftware.canvasplay.CanvasTest;
 import engineer.mathsoftware.canvasplay.FxProdCanvas;
+import engineer.mathsoftware.canvasplay.drawing.shape.OvalDrawings.OvalDrawing;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 

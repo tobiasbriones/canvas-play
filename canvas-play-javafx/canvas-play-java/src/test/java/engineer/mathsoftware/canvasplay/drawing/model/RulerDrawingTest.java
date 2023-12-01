@@ -6,7 +6,7 @@ package engineer.mathsoftware.canvasplay.drawing.model;
 
 import engineer.mathsoftware.canvasplay.CanvasTest;
 import engineer.mathsoftware.canvasplay.FxProdCanvas;
-import engineer.mathsoftware.canvasplay.drawing.shape.OvalDrawing;
+import engineer.mathsoftware.canvasplay.drawing.shape.OvalDrawings.OvalDrawing;
 import javafx.scene.paint.Color;
 import javafx.scene.text.FontWeight;
 import org.junit.jupiter.api.Test;

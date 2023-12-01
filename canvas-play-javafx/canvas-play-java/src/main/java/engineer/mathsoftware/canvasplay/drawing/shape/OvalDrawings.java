@@ -4,10 +4,35 @@
 
 package engineer.mathsoftware.canvasplay.drawing.shape;
 
+import engineer.mathsoftware.canvasplay.shape.Oval;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
-final class CanvasOvalDrawing {
+public final class OvalDrawings {
+    public interface OvalDrawing extends CommonDrawings.CommonDrawing {
+        static OvalDrawing of(
+            GraphicsContext ctx, Oval oval) {
+            return switch (oval) {
+                case Oval.Circle circle -> new CircleDrawing(
+                    ctx,
+                    circle.radius(),
+                    circle.cx(),
+                    circle.cy(),
+                    circle.diameter()
+                );
+                case Oval.Ellipse ellipse -> new EllipseDrawing(
+                    ctx,
+                    ellipse.radiusX(),
+                    ellipse.radiusY(),
+                    ellipse.cx(),
+                    ellipse.cy(),
+                    ellipse.diameterX(),
+                    ellipse.diameterY()
+                );
+            };
+        }
+    }
+
     record CircleDrawing(
         GraphicsContext ctx,
         double radius,
@@ -50,5 +75,5 @@ final class CanvasOvalDrawing {
         }
     }
 
-    private CanvasOvalDrawing() {}
+    private OvalDrawings() { }
 }
