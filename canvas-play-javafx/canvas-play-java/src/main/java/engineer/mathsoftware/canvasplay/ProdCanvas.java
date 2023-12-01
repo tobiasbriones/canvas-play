@@ -15,15 +15,7 @@ import java.util.function.Function;
  * productions like images and animations with scaling for custom resolutions,
  * etc.
  */
-public interface ProdCanvas {
-    double width();
-
-    double height();
-
-    double cx();
-
-    double cy();
-
+public interface ProdCanvas extends Metrics {
     GraphicsContext ctx();
 
     default void setState(Consumer<? super GraphicsContext> setState) {
