@@ -30,6 +30,12 @@ public interface ProdCanvas {
         setState.accept(ctx());
     }
 
+    default <D, T> Function<T, D> drawing(
+        BiFunction<? super ProdCanvas, ? super T, ? extends D> cons
+    ) {
+        return shape -> cons.apply(this, shape);
+    }
+
     default <D, T> Function<T, D> drawingCtx(
         BiFunction<? super GraphicsContext, ? super T, ? extends D> cons
     ) {
