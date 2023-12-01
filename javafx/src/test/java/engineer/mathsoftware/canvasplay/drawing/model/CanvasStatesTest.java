@@ -43,4 +43,30 @@ class CanvasStatesTest extends CanvasTest {
             );
         });
     }
+
+    @Test
+    void poppinsFontIsUsed() {
+        actualCanvas(canvas -> {
+            var prodCanvas = new FxProdCanvas(canvas, 1.0);
+
+            prodCanvas.setState(drawingText(FontWeight.LIGHT, 24.0));
+            prodCanvas.ctx().fillText("Poppins Light", 100.0, 20.0);
+
+            prodCanvas.setState(drawingText(FontWeight.NORMAL, 24.0));
+            prodCanvas.ctx().fillText(
+                "Poppins Normal",
+                CANVAS_WIDTH / 2.0,
+                CANVAS_HEIGHT / 2.0
+            );
+
+            prodCanvas.setState(drawingText(FontWeight.BLACK, 24.0));
+            prodCanvas.ctx().fillText(
+                "Poppins Black",
+                CANVAS_WIDTH - 100,
+                CANVAS_HEIGHT - 20.0
+            );
+        });
+
+        matchImage("poppins-weights.png");
+    }
 }
