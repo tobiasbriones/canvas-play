@@ -6,6 +6,7 @@ package engineer.mathsoftware.canvasplay;
 
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import org.hamcrest.Matcher;
@@ -39,11 +40,11 @@ public final class CanvasMatchers {
             Canvas.class,
             "has " + name,
             canvas -> "Actual drawing doesn't match expected drawing",
-            canvas -> areDrawingEquals(canvas, drawing)
+            canvas -> areDrawingsEqual(canvas, drawing)
         );
     }
 
-    private static boolean areDrawingEquals(
+    private static boolean areDrawingsEqual(
         Canvas actualCanvas,
         Canvas expectedCanvas
     ) {
@@ -54,7 +55,15 @@ public final class CanvasMatchers {
         var actualPixels = actual.getPixelReader();
         var width = (int) actualCanvas.getWidth();
         var height = (int) actualCanvas.getHeight();
+        return areImagesEqual(actualPixels, expectedPixels, width, height);
+    }
 
+    private static boolean areImagesEqual(
+        PixelReader actual,
+        PixelReader expected,
+        int width,
+        int height
+    ) {
         record ColorPair(Color a, Color b) {
             boolean match() { return a.equals(b); }
         }
@@ -64,8 +73,8 @@ public final class CanvasMatchers {
             .allMatch(y -> IntStream
                 .range(0, width)
                 .mapToObj(x -> new ColorPair(
-                    actualPixels.getColor(x, y),
-                    expectedPixels.getColor(x, y)
+                    actual.getColor(x, y),
+                    expected.getColor(x, y)
                 ))
                 .allMatch(ColorPair::match));
     }
