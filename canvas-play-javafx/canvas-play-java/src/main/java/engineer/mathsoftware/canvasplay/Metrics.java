@@ -8,6 +8,10 @@ public interface Metrics {
     double REM_PX = 16.0;
     double BASELINE_WIDTH = 720.0;
 
+    record Rem(double value) {
+        public static Rem of(double value) { return new Rem(value); }
+    }
+
     double width();
 
     double height();
@@ -24,5 +28,16 @@ public interface Metrics {
      */
     default double rem() {
         return REM_PX * (width() / BASELINE_WIDTH);
+    }
+
+    /**
+     * Returns the size of the given REM units in pixels.
+     *
+     * @param size REM units
+     *
+     * @return the size of the given REM units in pixels
+     */
+    default double size(Rem size) {
+        return rem() * size.value();
     }
 }
