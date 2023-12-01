@@ -9,6 +9,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.function.Consumer;
 
@@ -63,6 +65,26 @@ public class CanvasTest extends ApplicationTest {
         verifyThat(
             actual,
             hasDrawing(expected, expectedDesc)
+        );
+    }
+
+    /**
+     * It asserts whether the actual canvas drawing in its current state matches
+     * the given image. The image path is relative to the test/resources
+     * directory.
+     *
+     * @param path path of the expected image from test/resources
+     */
+    protected void matchImage(String path) {
+        var expectedImage = new Image(Objects
+            .requireNonNull(
+                getClass()
+                    .getClassLoader()
+                    .getResourceAsStream(path)));
+
+        verifyThat(
+            actual,
+            hasDrawing(expectedImage, path)
         );
     }
 
