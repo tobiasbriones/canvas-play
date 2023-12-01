@@ -5,6 +5,9 @@
 package engineer.mathsoftware.canvasplay;
 
 public interface Metrics {
+    double REM_PX = 16.0;
+    double BASELINE_WIDTH = 720.0;
+
     double width();
 
     double height();
@@ -12,4 +15,14 @@ public interface Metrics {
     double cx();
 
     double cy();
+
+    /**
+     * 1rem = 16px, baseline is 720px width.
+     *
+     * @return the value of a REM in pixels considering 1rem = 16px and 720px
+     * width as baseline
+     */
+    default double rem() {
+        return REM_PX * (width() / BASELINE_WIDTH);
+    }
 }
