@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import static engineer.mathsoftware.canvasplay.composition.caption.Caption.*;
 
-interface Composition {
+interface Composition extends CompositionMetrics {
     default Title home() {
         return new Title("dev | mathsoftware.engineer");
     }
