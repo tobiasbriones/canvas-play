@@ -6,6 +6,7 @@ package engineer.mathsoftware.canvasplay;
 
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
@@ -44,12 +45,28 @@ public final class CanvasMatchers {
         );
     }
 
+    public static Matcher<Canvas> hasDrawing(Image drawing, String name) {
+        return typeSafeMatcher(
+            Canvas.class,
+            "has " + name,
+            canvas -> "Actual drawing doesn't match expected image",
+            canvas -> areDrawingsEqual(canvas, drawing)
+        );
+    }
+
     private static boolean areDrawingsEqual(
         Canvas actualCanvas,
         Canvas expectedCanvas
     ) {
-        // Assume canvas sizes are integers and both equals //
         var expected = snapshot(expectedCanvas);
+        return areDrawingsEqual(actualCanvas, expected);
+    }
+
+    private static boolean areDrawingsEqual(
+        Canvas actualCanvas,
+        Image expected
+    ) {
+        // Assume canvas sizes are integers and both equals //
         var actual = snapshot(actualCanvas);
         var expectedPixels = expected.getPixelReader();
         var actualPixels = actual.getPixelReader();
