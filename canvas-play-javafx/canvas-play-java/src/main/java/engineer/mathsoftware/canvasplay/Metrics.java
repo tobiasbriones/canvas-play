@@ -16,9 +16,9 @@ public interface Metrics {
 
     double height();
 
-    double cx();
+    default double cx() { return width() / 2.0; }
 
-    double cy();
+    default double cy() { return height() / 2.0; }
 
     /**
      * 1rem = 16px, baseline is 720px width.

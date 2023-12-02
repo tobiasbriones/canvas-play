@@ -28,12 +28,6 @@ public class FxProdCanvas implements ProdCanvas {
     public double height() { return canvas.getHeight() / scale; }
 
     @Override
-    public double cx() { return width() / 2.0; }
-
-    @Override
-    public double cy() { return height() / 2.0; }
-
-    @Override
     public GraphicsContext ctx() {
         return canvas.getGraphicsContext2D();
     }
