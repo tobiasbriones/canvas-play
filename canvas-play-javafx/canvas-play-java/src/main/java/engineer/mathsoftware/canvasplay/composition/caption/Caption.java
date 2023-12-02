@@ -6,6 +6,8 @@ package engineer.mathsoftware.canvasplay.composition.caption;
 
 import engineer.mathsoftware.canvasplay.Metrics.Rem;
 
+import java.util.Optional;
+
 public sealed interface Caption {
     Rem TITLE_SIZE = Rem.of(1.5);
 
@@ -18,4 +20,11 @@ public sealed interface Caption {
     record Title(String value) implements Caption {}
 
     record Abstract(String value) implements Caption {}
+
+    record Card(
+        Title title,
+        Title home,
+        Optional<Title> subHome,
+        Optional<Abstract> abs
+    ) {}
 }
