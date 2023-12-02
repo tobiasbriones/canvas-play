@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
 import static engineer.mathsoftware.canvasplay.composition.model.Rulers.*;
-import static engineer.mathsoftware.canvasplay.drawing.model.CanvasStates.*;
+import static engineer.mathsoftware.canvasplay.drawing.CanvasStates.*;
 import static engineer.mathsoftware.canvasplay.drawing.model.RulerDrawings.*;
 import static engineer.mathsoftware.canvasplay.shape.Oval.*;
 

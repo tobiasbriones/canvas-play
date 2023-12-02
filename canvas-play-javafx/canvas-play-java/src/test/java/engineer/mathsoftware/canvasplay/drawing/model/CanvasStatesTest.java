@@ -9,7 +9,7 @@ import engineer.mathsoftware.canvasplay.FxProdCanvas;
 import javafx.scene.text.FontWeight;
 import org.junit.jupiter.api.Test;
 
-import static engineer.mathsoftware.canvasplay.drawing.model.CanvasStates.drawingText;
+import static engineer.mathsoftware.canvasplay.drawing.CanvasStates.drawingText;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 

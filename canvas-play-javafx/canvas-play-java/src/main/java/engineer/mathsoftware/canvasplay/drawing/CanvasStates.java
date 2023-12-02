@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 // This file is part of https://github.com/tobiasbriones/canvas-play
 
-package engineer.mathsoftware.canvasplay.drawing.model;
+package engineer.mathsoftware.canvasplay.drawing;
 
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
