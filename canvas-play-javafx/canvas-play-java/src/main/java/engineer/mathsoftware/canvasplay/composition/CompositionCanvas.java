@@ -5,6 +5,7 @@
 package engineer.mathsoftware.canvasplay.composition;
 
 import engineer.mathsoftware.canvasplay.ProdCanvas;
+import javafx.scene.canvas.Canvas;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -14,5 +15,9 @@ public interface CompositionCanvas extends Composition, ProdCanvas {
         BiFunction<? super CompositionCanvas, ? super T, ? extends D> cons
     ) {
         return shape -> cons.apply(this, shape);
+    }
+
+    static CompositionCanvas of(Canvas canvas, double scale) {
+        return new FxCompositionCanvas(canvas, scale);
     }
 }
