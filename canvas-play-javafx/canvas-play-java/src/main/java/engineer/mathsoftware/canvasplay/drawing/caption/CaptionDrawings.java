@@ -4,6 +4,7 @@
 
 package engineer.mathsoftware.canvasplay.drawing.caption;
 
+import engineer.mathsoftware.canvasplay.Metrics;
 import engineer.mathsoftware.canvasplay.ProdCanvas;
 import engineer.mathsoftware.canvasplay.composition.CompositionCanvas;
 import javafx.geometry.VPos;
@@ -68,7 +69,7 @@ public final class CaptionDrawings {
                     canvas,
                     card.title().value(),
                     titleBottom,
-                    titleSize.value()
+                    titleSize
                 ),
                 new CanvasHomeDrawing(
                     canvas,
@@ -147,13 +148,13 @@ public final class CaptionDrawings {
         ProdCanvas canvas,
         String title,
         double titleBottom,
-        double titleSize
+        Metrics.Rem titleSize
     ) implements CaptionDrawing {
         @Override
         public void draw() {
             canvas.setState(drawingText(
                 FontWeight.BOLD,
-                titleSize,
+                canvas.size(titleSize),
                 VPos.BOTTOM
             ));
             drawCaptionLabel(canvas, title, titleBottom);
@@ -184,10 +185,11 @@ public final class CaptionDrawings {
         @Override
         public void draw() {
             canvas.setState(drawingText(
-                FontWeight.LIGHT,
-                canvas.size(ABSTRACT_SIZE),
+                FontWeight.MEDIUM,
+                canvas.size(TITLE_SIZE),
                 VPos.BOTTOM
             ));
+            drawCaptionLabel(canvas, subHome, bottom);
         }
     }
 
