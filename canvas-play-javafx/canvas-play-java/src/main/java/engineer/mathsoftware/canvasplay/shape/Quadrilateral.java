@@ -5,19 +5,28 @@
 package engineer.mathsoftware.canvasplay.shape;
 
 public sealed interface Quadrilateral extends Shape {
-    record RoundRectangle(
+    record Rectangle(
         double width,
         double height,
-        double arcX,
-        double arcY,
         double cx,
         double cy
     ) implements Quadrilateral {
         @Override
         public double area() {
+            return width * height;
+        }
+    }
+
+    record RoundRectangle(
+        Rectangle rectangle,
+        double arcX,
+        double arcY
+    ) implements Quadrilateral {
+        @Override
+        public double area() {
             // TODO take borders into account if necessary, not a useful
             // feature so far
-            return width * height;
+            return rectangle.area();
         }
     }
 }
