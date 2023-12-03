@@ -8,18 +8,20 @@ import engineer.mathsoftware.canvasplay.shape.Oval;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
+import static engineer.mathsoftware.canvasplay.shape.Oval.*;
+
 public final class OvalDrawings {
     public interface OvalDrawing extends CommonDrawings.CommonDrawing {
         static OvalDrawing of(GraphicsContext ctx, Oval oval) {
             return switch (oval) {
-                case Oval.Circle circle -> new CircleDrawing(
+                case Circle circle -> new CircleDrawing(
                     ctx,
                     circle.radius(),
                     circle.cx(),
                     circle.cy(),
                     circle.diameter()
                 );
-                case Oval.Ellipse ellipse -> new EllipseDrawing(
+                case Ellipse ellipse -> new EllipseDrawing(
                     ctx,
                     ellipse.radiusX(),
                     ellipse.radiusY(),
