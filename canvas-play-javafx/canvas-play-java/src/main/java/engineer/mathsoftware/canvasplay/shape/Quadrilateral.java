@@ -5,7 +5,7 @@
 package engineer.mathsoftware.canvasplay.shape;
 
 public sealed interface Quadrilateral extends Shape {
-    record RoundRect(
+    record RoundRectangle(
         double width,
         double height,
         double arcX,
