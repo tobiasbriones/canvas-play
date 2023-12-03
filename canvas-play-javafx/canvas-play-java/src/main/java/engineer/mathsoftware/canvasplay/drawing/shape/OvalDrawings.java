@@ -10,8 +10,7 @@ import javafx.scene.paint.Paint;
 
 public final class OvalDrawings {
     public interface OvalDrawing extends CommonDrawings.CommonDrawing {
-        static OvalDrawing of(
-            GraphicsContext ctx, Oval oval) {
+        static OvalDrawing of(GraphicsContext ctx, Oval oval) {
             return switch (oval) {
                 case Oval.Circle circle -> new CircleDrawing(
                     ctx,
