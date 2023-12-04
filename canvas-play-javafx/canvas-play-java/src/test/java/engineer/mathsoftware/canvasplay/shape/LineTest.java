@@ -22,4 +22,34 @@ class LineTest {
         assertThat(hSegment.area(), is(0.0));
         assertThat(vSegment.area(), is(0.0));
     }
+
+    @Test
+    void subSegment() {
+        var segmentPosSlope = new Segment(1.0, 2.0, 10.0, 8.0);
+        var segmentNegSlope = new Segment(4.0, 2.0, 10.0, -8.0);
+
+        assertThat(
+            segmentPosSlope.minus(2.0),
+            is(
+                new Segment(
+                    2.664100588675687,
+                    3.109400392450458,
+                    8.335899411324313,
+                    6.890599607549542
+                )
+            )
+        );
+
+        assertThat(
+            segmentNegSlope.minus(3.5),
+            is(
+                new Segment(
+                    5.800735143996342,
+                    -1.0012252399939046,
+                    8.199264856003657,
+                    -4.998774760006095
+                )
+            )
+        );
+    }
 }
