@@ -33,6 +33,26 @@ public sealed interface Line extends Shape {
         double cy,
         double radius
     ) implements Line {
+        @Override
+        public double sx() {
+            return cx - radius;
+        }
+
+        @Override
+        public double sy() {
+            return cy;
+        }
+
+        @Override
+        public double ex() {
+            return cx + radius;
+        }
+
+        @Override
+        public double ey() {
+            return cy;
+        }
+
         public HSegment minus(double minusRadius) {
             return new HSegment(cx, cy, radius - minusRadius);
         }
@@ -43,10 +63,38 @@ public sealed interface Line extends Shape {
         double cy,
         double radius
     ) implements Line {
+        @Override
+        public double sx() {
+            return cx;
+        }
+
+        @Override
+        public double sy() {
+            return cy + radius;
+        }
+
+        @Override
+        public double ex() {
+            return cx;
+        }
+
+        @Override
+        public double ey() {
+            return cy - radius;
+        }
+
         public VSegment minus(double minusRadius) {
             return new VSegment(cx, cy, radius - minusRadius);
         }
     }
+
+    double sx();
+
+    double sy();
+
+    double ex();
+
+    double ey();
 
     @Override
     default double area() {
