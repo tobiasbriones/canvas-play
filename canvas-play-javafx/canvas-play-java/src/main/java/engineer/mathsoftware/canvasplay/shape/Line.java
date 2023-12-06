@@ -13,6 +13,7 @@ public sealed interface Line extends Shape {
         double ex,
         double ey
     ) implements Line {
+        @Override
         public Segment minus(double minusRadius) {
             var x = ex - sx;
             var y = ey - sy;
@@ -53,6 +54,7 @@ public sealed interface Line extends Shape {
             return cy;
         }
 
+        @Override
         public HSegment minus(double minusRadius) {
             return new HSegment(cx, cy, radius - minusRadius);
         }
@@ -83,6 +85,7 @@ public sealed interface Line extends Shape {
             return cy - radius;
         }
 
+        @Override
         public VSegment minus(double minusRadius) {
             return new VSegment(cx, cy, radius - minusRadius);
         }
@@ -95,6 +98,8 @@ public sealed interface Line extends Shape {
     double ex();
 
     double ey();
+
+    Line minus(double minusRadius);
 
     @Override
     default double area() {
