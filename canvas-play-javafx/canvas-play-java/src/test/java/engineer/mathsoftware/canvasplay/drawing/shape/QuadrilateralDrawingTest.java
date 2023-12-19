@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import static engineer.mathsoftware.canvasplay.shape.Quadrilateral.Rectangle;
-import static engineer.mathsoftware.canvasplay.shape.Quadrilateral.RoundRectangle;
+import static engineer.mathsoftware.canvasplay.shape.Quadrilateral.RoundedRectangle;
 
 class QuadrilateralDrawingTest extends CanvasTest {
     @Test
@@ -53,7 +53,7 @@ class QuadrilateralDrawingTest extends CanvasTest {
             prodCanvas
                 .drawingCtx(QuadrilateralDrawing::of)
                 .apply(
-                    new RoundRectangle(
+                    new RoundedRectangle(
                         new Rectangle(
                             200.0,
                             100.0,

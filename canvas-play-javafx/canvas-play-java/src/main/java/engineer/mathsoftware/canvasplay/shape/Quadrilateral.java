@@ -29,7 +29,7 @@ public sealed interface Quadrilateral extends Shape {
     //  this erroneous recursive design (i.e., a RoundRect is not actually a
     //  Quadrilateral because it's not exactly four sides, but this requires
     //  a Rectangle (an actual Quadrilateral) so it's a loop of deps).
-    record RoundRectangle(
+    record RoundedRectangle(
         Rectangle rectangle,
         double arcX,
         double arcY

@@ -24,7 +24,7 @@ public final class QuadrilateralDrawings {
                     rectangle.cx(),
                     rectangle.cy()
                 );
-                case RoundRectangle(var rectangle, var arcX, var arcY) ->
+                case RoundedRectangle(var rectangle, var arcX, var arcY) ->
                     new CanvasRoundRectangleDrawing(
                         ctx,
                         rectangle.width(),
