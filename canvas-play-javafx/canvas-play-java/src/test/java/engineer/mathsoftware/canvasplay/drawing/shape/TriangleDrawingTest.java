@@ -65,7 +65,7 @@ class TriangleDrawingTest extends CanvasTest {
             prodCanvas
                 .drawingCtx(TriangleDrawing::of)
                 .apply(
-                    new RoundTriangle(
+                    new RoundedTriangle(
                         new EquilateralTriangle(
                             200.0,
                             CANVAS_WIDTH / 2.0,

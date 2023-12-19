@@ -39,7 +39,7 @@ public sealed interface Triangle extends Shape {
     }
 
     // TODO see Quadrilateral#RoundRectangle
-    record RoundTriangle(Triangle triangle, double arc) implements Triangle {
+    record RoundedTriangle(Triangle triangle, double arc) implements Triangle {
         @Override
         public double area() {
             // TODO implement if needed

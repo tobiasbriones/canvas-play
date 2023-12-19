@@ -26,7 +26,7 @@ public final class TriangleDrawings {
                     sides.left()
                 );
 
-                case RoundTriangle(var ignore, var arc) ->
+                case RoundedTriangle(var ignore, var arc) ->
                     new CanvasRoundTriangleDrawing(
                         ctx,
                         sides.base(),
