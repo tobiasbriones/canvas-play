@@ -52,6 +52,7 @@ class TriangleDrawingTest extends CanvasTest {
             );
         });
 
+        save("eq");
         match("equilateral triangle centered color gray");
     }
 

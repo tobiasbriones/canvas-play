@@ -4,36 +4,21 @@
 
 package engineer.mathsoftware.canvasplay.drawing.shape;
 
-import engineer.mathsoftware.canvasplay.shape.Line;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
-import static engineer.mathsoftware.canvasplay.shape.Line.*;
+import static engineer.mathsoftware.canvasplay.shape.Lines.*;
 
 public final class LineDrawings {
     public interface LineDrawing extends CommonDrawings.Stroke {
-        static LineDrawing of(GraphicsContext ctx, Line line) {
-            return switch (line) {
-                case Segment segment -> new SegmentDrawing(
-                    ctx,
-                    segment.sx(),
-                    segment.sy(),
-                    segment.ex(),
-                    segment.ey()
-                );
-                case HSegment hSegment -> new HSegmentDrawing(
-                    ctx,
-                    hSegment.cx(),
-                    hSegment.cy(),
-                    hSegment.radius()
-                );
-                case VSegment vSegment -> new VSegmentDrawing(
-                    ctx,
-                    vSegment.cx(),
-                    vSegment.cy(),
-                    vSegment.radius()
-                );
-            };
+        static LineDrawing of(GraphicsContext ctx, Segment segment) {
+            return new SegmentDrawing(
+                ctx,
+                segment.sx(),
+                segment.sy(),
+                segment.ex(),
+                segment.ey()
+            );
         }
     }
 
@@ -51,31 +36,5 @@ public final class LineDrawings {
         }
     }
 
-    record HSegmentDrawing(
-        GraphicsContext ctx,
-        double cx,
-        double cy,
-        double radius
-    ) implements LineDrawing {
-        @Override
-        public void stroke(Paint color) {
-            ctx.setStroke(color);
-            ctx.strokeLine(cx - radius, cy, cx + radius, cy);
-        }
-    }
-
-    record VSegmentDrawing(
-        GraphicsContext ctx,
-        double cx,
-        double cy,
-        double radius
-    ) implements LineDrawing {
-        @Override
-        public void stroke(Paint color) {
-            ctx.setStroke(color);
-            ctx.strokeLine(cx, cy - radius, cx, cy + radius);
-        }
-    }
-
-    private LineDrawings() { }
+    private LineDrawings() {}
 }

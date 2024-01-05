@@ -6,7 +6,7 @@ package engineer.mathsoftware.canvasplay.drawing.model;
 
 import engineer.mathsoftware.canvasplay.ProdCanvas;
 import engineer.mathsoftware.canvasplay.drawing.shape.LineDrawings.LineDrawing;
-import engineer.mathsoftware.canvasplay.shape.Line;
+import engineer.mathsoftware.canvasplay.shape.Lines;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static engineer.mathsoftware.canvasplay.composition.model.Rulers.*;
-import static engineer.mathsoftware.canvasplay.shape.Line.*;
+import static engineer.mathsoftware.canvasplay.shape.Lines.*;
 
 public final class RulerDrawings {
     public interface RulerDrawing {
@@ -37,23 +37,15 @@ public final class RulerDrawings {
             var cy = ruler.cy();
             var radius = ruler.radius();
             var lines = switch (ruler.orientation()) {
-                case HRuler -> List.<Line>of(
-                    new HSegment(cx, cy, radius),
-                    new Segment(
-                        cx - radius, 0.0, cx - radius, cy + radius
-                    ),
-                    new Segment(
-                        cx + radius, 0.0, cx + radius, cy + radius
-                    )
+                case HRuler -> List.of(
+                    HSegment.of(radius, cx, cy),
+                    Segment.of(cx - radius, 0.0, cx - radius, cy + radius),
+                    Segment.of(cx + radius, 0.0, cx + radius, cy + radius)
                 );
-                case VRuler -> List.<Line>of(
-                    new VSegment(cx, cy, radius),
-                    new Segment(
-                        0.0, cy - radius, cx + radius, cy - radius
-                    ),
-                    new Segment(
-                        0.0, cy + radius, cx + radius, cy + radius
-                    )
+                case VRuler -> List.of(
+                    VSegment.of(radius, cx, cy),
+                    Segment.of(0.0, cy - radius, cx + radius, cy - radius),
+                    Segment.of(0.0, cy + radius, cx + radius, cy + radius)
                 );
             };
             var drawingCtx = canvas.drawingCtx(LineDrawing::of);

@@ -4,6 +4,8 @@
 
 package engineer.mathsoftware.canvasplay.shape;
 
+import static engineer.mathsoftware.canvasplay.shape.Lines.*;
+
 public sealed interface Triangle extends Shape {
     double SQRT_3 = 1.7320508075688772;
 
@@ -31,9 +33,9 @@ public sealed interface Triangle extends Shape {
             var topX = cx;
             var topY = cy - height / 2.0;
             return new Sides(
-                new Line.HSegment(cx, baseY, side / 2.0),
-                new Line.Segment(baseLeftX, baseY, topX, topY),
-                new Line.Segment(topX, topY, baseRightX, baseY)
+                HSegment.of(side / 2.0, cx, baseY),
+                Segment.of(baseLeftX, baseY, topX, topY),
+                Segment.of(topX, topY, baseRightX, baseY)
             );
         }
     }
@@ -58,9 +60,9 @@ public sealed interface Triangle extends Shape {
     }
 
     record Sides(
-        Line.HSegment base,
-        Line.Segment left,
-        Line.Segment right
+        HSegment base,
+        Segment left,
+        Segment right
     ) {
         Sides minus(double radius) {
             return new Sides(

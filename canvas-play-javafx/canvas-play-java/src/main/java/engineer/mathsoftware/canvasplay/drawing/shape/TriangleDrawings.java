@@ -4,11 +4,11 @@
 
 package engineer.mathsoftware.canvasplay.drawing.shape;
 
-import engineer.mathsoftware.canvasplay.shape.Line;
 import engineer.mathsoftware.canvasplay.shape.Triangle;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
+import static engineer.mathsoftware.canvasplay.shape.Lines.*;
 import static engineer.mathsoftware.canvasplay.shape.Triangle.*;
 
 public final class TriangleDrawings {
@@ -41,8 +41,8 @@ public final class TriangleDrawings {
 
     record CanvasTriangleDrawing(
         GraphicsContext ctx,
-        Line.HSegment base,
-        Line.Segment side
+        HSegment base,
+        Segment side
     ) implements TriangleDrawing {
         @Override
         public void fill(Paint color) {
@@ -60,6 +60,8 @@ public final class TriangleDrawings {
                 },
                 3
             );
+
+            System.out.println(base);
         }
 
         @Override
@@ -83,9 +85,9 @@ public final class TriangleDrawings {
 
     record CanvasRoundTriangleDrawing(
         GraphicsContext ctx,
-        Line.HSegment base,
-        Line.Segment left,
-        Line.Segment right,
+        HSegment base,
+        Segment left,
+        Segment right,
         double height,
         double arc
     ) implements TriangleDrawing {

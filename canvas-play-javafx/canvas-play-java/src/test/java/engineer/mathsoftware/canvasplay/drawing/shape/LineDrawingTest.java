@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import static engineer.mathsoftware.canvasplay.drawing.shape.LineDrawings.*;
-import static engineer.mathsoftware.canvasplay.shape.Line.Segment;
+import static engineer.mathsoftware.canvasplay.shape.Lines.*;
 
 class LineDrawingTest extends CanvasTest {
     @Test
@@ -23,7 +23,7 @@ class LineDrawingTest extends CanvasTest {
             prodCanvas
                 .drawingCtx(LineDrawing::of)
                 .apply(
-                    new Segment(
+                    Segment.of(
                         0.0, 0.0, CANVAS_WIDTH - 1.0, CANVAS_HEIGHT - 1.0
                     ))
                 .stroke(color);
@@ -49,7 +49,7 @@ class LineDrawingTest extends CanvasTest {
             LineDrawing
                 .of(
                     prodCanvas.ctx(),
-                    new Segment(
+                    Segment.of(
                         0.0, 0.0, CANVAS_WIDTH - 1.0, CANVAS_HEIGHT - 1.0
                     )
                 )
