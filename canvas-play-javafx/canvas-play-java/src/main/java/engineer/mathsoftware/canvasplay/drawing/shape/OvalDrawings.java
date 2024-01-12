@@ -7,6 +7,7 @@ package engineer.mathsoftware.canvasplay.drawing.shape;
 import engineer.mathsoftware.canvasplay.shape.Oval;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.ArcType;
 
 import static engineer.mathsoftware.canvasplay.shape.Oval.*;
 
@@ -29,6 +30,17 @@ public final class OvalDrawings {
                     ellipse.cy(),
                     ellipse.diameterX(),
                     ellipse.diameterY()
+                );
+                case EllipseArc arc -> new ArcDrawing(
+                    ctx,
+                    arc.radiusX(),
+                    arc.radiusY(),
+                    arc.angleStart(),
+                    arc.angleExtent(),
+                    arc.cx(),
+                    arc.cy(),
+                    arc.diameterX(),
+                    arc.diameterY()
                 );
             };
         }
@@ -76,5 +88,45 @@ public final class OvalDrawings {
         }
     }
 
-    private OvalDrawings() { }
+    record ArcDrawing(
+        GraphicsContext ctx,
+        double radiusX,
+        double radiusY,
+        double angleStart,
+        double angleExtent,
+        double cx,
+        double cy,
+        double diameterX,
+        double diameterY
+    ) implements OvalDrawing {
+        @Override
+        public void stroke(Paint color) {
+            ctx.setStroke(color);
+            ctx.strokeArc(
+                cx - radiusX,
+                cy - radiusY,
+                diameterX,
+                diameterY,
+                angleStart,
+                angleExtent,
+                ArcType.ROUND
+            );
+        }
+
+        @Override
+        public void fill(Paint color) {
+            ctx.setFill(color);
+            ctx.fillArc(
+                cx - radiusX,
+                cy - radiusY,
+                diameterX,
+                diameterY,
+                angleStart,
+                angleExtent,
+                ArcType.ROUND
+            );
+        }
+    }
+
+    private OvalDrawings() {}
 }

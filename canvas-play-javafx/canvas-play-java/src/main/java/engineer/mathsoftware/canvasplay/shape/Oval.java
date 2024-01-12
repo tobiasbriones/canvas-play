@@ -39,4 +39,27 @@ public sealed interface Oval extends Shape {
             return Math.PI * radiusX * radiusY;
         }
     }
+
+    record EllipseArc(
+        double radiusX,
+        double radiusY,
+        double angleStart,
+        double angleExtent,
+        double cx,
+        double cy
+    ) implements Oval {
+        @Override
+        public double area() {
+            // TODO define area
+            return 0;
+        }
+
+        public double diameterX() {
+            return 2.0 * radiusX;
+        }
+
+        public double diameterY() {
+            return 2.0 * radiusY;
+        }
+    }
 }
