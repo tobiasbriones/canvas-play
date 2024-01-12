@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
 import static engineer.mathsoftware.canvasplay.shape.Quadrilateral.Rectangle;
-import static engineer.mathsoftware.canvasplay.shape.Quadrilateral.RoundedRectangle;
+import static engineer.mathsoftware.canvasplay.shape.rounded.RoundedPolygons.RoundedQuadrilateral.*;
 
 class QuadrilateralDrawingTest extends CanvasTest {
     @Test
@@ -51,33 +51,22 @@ class QuadrilateralDrawingTest extends CanvasTest {
             var prodCanvas = new FxProdCanvas(canvas, 1.0);
 
             prodCanvas
-                .drawingCtx(QuadrilateralDrawing::of)
+                .drawing(RoundedDrawings.RoundedQuadrilateralDrawing::of)
                 .apply(
                     new RoundedRectangle(
                         new Rectangle(
-                            200.0,
-                            100.0,
+                            176.0,
+                            76.0,
                             CANVAS_WIDTH / 2.0,
                             CANVAS_HEIGHT / 2.0
                         ),
-                        24.0,
-                        24.0
+                        12.0,
+                        12.0
                     ))
                 .fill(color);
         });
 
-        expected(ctx -> {
-            ctx.setFill(color);
-            ctx.fillRoundRect(
-                CANVAS_WIDTH / 2.0 - 100,
-                CANVAS_HEIGHT / 2.0 - 50.0,
-                200.0,
-                100.0,
-                24.0,
-                24.0
-            );
-        });
-
-        match("centered greenish round rectangle (200, 100), arc=24");
+        // The total rectangle dimension is (200, 100)
+        matchImage("rounded-rectangle.png");
     }
 }

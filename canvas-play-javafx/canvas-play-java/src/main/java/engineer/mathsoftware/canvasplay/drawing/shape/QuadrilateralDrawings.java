@@ -24,16 +24,6 @@ public final class QuadrilateralDrawings {
                     rectangle.cx(),
                     rectangle.cy()
                 );
-                case RoundedRectangle(var rectangle, var arcX, var arcY) ->
-                    new CanvasRoundRectangleDrawing(
-                        ctx,
-                        rectangle.width(),
-                        rectangle.height(),
-                        rectangle.cx(),
-                        rectangle.cy(),
-                        arcX,
-                        arcY
-                    );
             };
         }
     }
@@ -55,40 +45,6 @@ public final class QuadrilateralDrawings {
         public void stroke(Paint color) {
             ctx.setStroke(color);
             ctx.strokeRect(cx - width / 2.0, cy - height / 2.0, width, height);
-        }
-    }
-
-    record CanvasRoundRectangleDrawing(
-        GraphicsContext ctx,
-        double width,
-        double height,
-        double cx,
-        double cy,
-        double arcX,
-        double arcY
-    ) implements QuadrilateralDrawing {
-        @Override
-        public void fill(Paint color) {
-            ctx.setFill(color);
-            ctx.fillRoundRect(
-                cx - width / 2.0,
-                cy - height / 2.0, width,
-                height,
-                arcX,
-                arcY
-            );
-        }
-
-        @Override
-        public void stroke(Paint color) {
-            ctx.setStroke(color);
-            ctx.strokeRoundRect(
-                cx - width / 2.0,
-                cy - height / 2.0, width,
-                height,
-                arcX,
-                arcY
-            );
         }
     }
 
