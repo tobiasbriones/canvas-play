@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 class LineTest {
     @Test
     void lineAreaIsZero() {
-        var segment = Segment.of(0.0, 0.0, 10.0, 15.0);
+        var segment = new Segment(0.0, 0.0, 10.0, 15.0);
         var hSegment = HSegment.of(
             10.0,
             0.0,
@@ -33,13 +33,13 @@ class LineTest {
 
     @Test
     void subSegment() {
-        var segmentPosSlope = Segment.of(1.0, 2.0, 10.0, 8.0);
-        var segmentNegSlope = Segment.of(4.0, 2.0, 10.0, -8.0);
+        var segmentPosSlope = new Segment(1.0, 2.0, 10.0, 8.0);
+        var segmentNegSlope = new Segment(4.0, 2.0, 10.0, -8.0);
 
         assertThat(
             segmentPosSlope.minus(2.0),
             is(
-                Segment.of(
+                new Segment(
                     2.664100588675687,
                     3.109400392450458,
                     8.335899411324313,
@@ -51,7 +51,7 @@ class LineTest {
         assertThat(
             segmentNegSlope.minus(3.5),
             is(
-                Segment.of(
+                new Segment(
                     5.800735143996342,
                     -1.0012252399939046,
                     8.199264856003657,

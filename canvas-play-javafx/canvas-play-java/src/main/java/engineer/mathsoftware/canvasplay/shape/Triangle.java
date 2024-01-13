@@ -34,8 +34,8 @@ public sealed interface Triangle extends Shape {
             var topY = cy - height / 2.0;
             return new Sides(
                 HSegment.of(side / 2.0, cx, baseY),
-                Segment.of(baseLeftX, baseY, topX, topY),
-                Segment.of(topX, topY, baseRightX, baseY)
+                new Segment(baseLeftX, baseY, topX, topY),
+                new Segment(topX, topY, baseRightX, baseY)
             );
         }
     }

@@ -23,7 +23,7 @@ class LineDrawingTest extends CanvasTest {
             prodCanvas
                 .drawingCtx(LineDrawing::of)
                 .apply(
-                    Segment.of(
+                    new Segment(
                         0.0, 0.0, CANVAS_WIDTH - 1.0, CANVAS_HEIGHT - 1.0
                     ))
                 .stroke(color);
@@ -49,7 +49,7 @@ class LineDrawingTest extends CanvasTest {
             LineDrawing
                 .of(
                     prodCanvas.ctx(),
-                    Segment.of(
+                    new Segment(
                         0.0, 0.0, CANVAS_WIDTH - 1.0, CANVAS_HEIGHT - 1.0
                     )
                 )

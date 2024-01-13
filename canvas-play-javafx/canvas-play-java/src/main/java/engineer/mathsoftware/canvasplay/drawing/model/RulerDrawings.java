@@ -38,14 +38,14 @@ public final class RulerDrawings {
             var radius = ruler.radius();
             var lines = switch (ruler.orientation()) {
                 case HRuler -> List.of(
-                    HSegment.of(radius, cx, cy),
-                    Segment.of(cx - radius, 0.0, cx - radius, cy + radius),
-                    Segment.of(cx + radius, 0.0, cx + radius, cy + radius)
+                    HSegment.toSegment(radius, cx, cy),
+                    new Segment(cx - radius, 0.0, cx - radius, cy + radius),
+                    new Segment(cx + radius, 0.0, cx + radius, cy + radius)
                 );
                 case VRuler -> List.of(
-                    VSegment.of(radius, cx, cy),
-                    Segment.of(0.0, cy - radius, cx + radius, cy - radius),
-                    Segment.of(0.0, cy + radius, cx + radius, cy + radius)
+                    VSegment.toSegment(radius, cx, cy),
+                    new Segment(0.0, cy - radius, cx + radius, cy - radius),
+                    new Segment(0.0, cy + radius, cx + radius, cy + radius)
                 );
             };
             var drawingCtx = canvas.drawingCtx(LineDrawing::of);

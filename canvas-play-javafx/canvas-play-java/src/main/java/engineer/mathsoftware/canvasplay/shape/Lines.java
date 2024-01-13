@@ -17,36 +17,20 @@ public final class Lines {
         default double area() { return 0.0; }
     }
 
-    public interface Segment extends LineShape {
-        static Segment of(
-            double sx,
-            double sy,
-            double ex,
-            double ey
-        ) {
-            return new SegmentShape(sx, sy, ex, ey);
-        }
-
-        double sx();
-
-        double sy();
-
-        double ex();
-
-        double ey();
-
+    public record Segment(
+        double sx,
+        double sy,
+        double ex,
+        double ey
+    ) implements LineShape {
         @Override
-        default Segment minus(double minusRadius) {
-            var sx = sx();
-            var sy = sy();
-            var ex = ex();
-            var ey = ey();
+        public Segment minus(double minusRadius) {
             var x = ex - sx;
             var y = ey - sy;
             var angle = atan(y / x);
             var dx = minusRadius * cos(angle);
             var dy = minusRadius * sin(angle);
-            return of(
+            return new Segment(
                 sx + dx,
                 sy + dy,
                 ex - dx,
@@ -80,127 +64,128 @@ public final class Lines {
         return new SegmentOrientation.Quadrantal(QuadrantalOrientation.Vertical);
     }
 
-    public interface OrientedSegment extends Segment, ToSegment {
+    public record OrientedSegment(
+        SegmentOrientation orientation,
+        double radius,
+        double cx,
+        double cy
+    ) implements LineShape, ToSegment {
         static OrientedSegment of(
             Supplier<? extends SegmentOrientation> orientation,
             double radius,
             double cx,
             double cy
         ) {
-            return new OrientedSegmentShape(orientation.get(), radius, cx, cy);
+            return new OrientedSegment(orientation.get(), radius, cx, cy);
         }
 
-        SegmentOrientation orientation();
-
-        double radius();
-
-        double cx();
-
-        double cy();
-
         @Override
-        default OrientedSegment minus(double minusRadius) {
+        public OrientedSegment minus(double minusRadius) {
             return of(
                 this::orientation,
-                radius() - minusRadius,
-                cx(),
-                cy()
+                radius - minusRadius,
+                cx,
+                cy
             );
         }
 
         @Override
-        default double sx() { return toSegment().sx(); }
-
-        @Override
-        default double sy() { return toSegment().sy(); }
-
-        @Override
-
-        default double ex() { return toSegment().ex(); }
-
-        @Override
-
-        default double ey() { return toSegment().ey(); }
-
-        default double triangleX(double angle) {
-            return radius() * cos(toRadians(angle));
-        }
-
-        default double triangleY(double angle) {
-            return radius() * sin(toRadians(angle));
-        }
-
-        default Segment toSegment() {
-            var angle = orientation().angle();
-            var cx = cx();
-            var cy = cy();
+        public Segment toSegment() {
+            var angle = orientation.angle();
             var tx = triangleX(angle);
             var ty = triangleY(angle);
-            return Segment.of(cx - tx, cy - ty, cx + tx, cy + ty);
+            return new Segment(cx - tx, cy - ty, cx + tx, cy + ty);
+        }
+
+        public double sx() { return toSegment().sx(); }
+
+        public double sy() { return toSegment().sy(); }
+
+        public double ex() { return toSegment().ex(); }
+
+        public double ey() { return toSegment().ey(); }
+
+        double triangleX(double angle) {
+            return radius * cos(toRadians(angle));
+        }
+
+        double triangleY(double angle) {
+            return radius * sin(toRadians(angle));
         }
     }
 
-    public interface HSegment extends OrientedSegment {
-        static HSegment of(double radius, double cx, double cy) {
-            return new HSegmentShape(radius, cx, cy);
-        }
+    public interface OrientedSegmentRefinement extends LineShape, ToSegment {
+        OrientedSegment segment();
 
         @Override
-        default HSegment minus(double minusRadius) {
-            return of(
-                radius() - minusRadius,
-                cx(),
-                cy()
+        default Segment toSegment() { return segment().toSegment(); }
+
+        default double radius() { return segment().radius(); }
+
+        default double cx() { return segment().cx(); }
+
+        default double cy() { return segment().ey(); }
+
+        default double sx() { return segment().sx(); }
+
+        default double sy() { return segment().sy(); }
+
+        default double ex() { return segment().ex(); }
+
+        default double ey() { return segment().ey(); }
+    }
+
+    /**
+     * Defines a refinement type of {@link OrientedSegment} with
+     * {@link Lines#hSegmentOrientation()}.
+     *
+     * @param segment oriented segment with
+     *                {@link Lines#hSegmentOrientation()}.
+     */
+    public record HSegment(
+        OrientedSegment segment
+    ) implements OrientedSegmentRefinement {
+        public static HSegment of(double radius, double cx, double cy) {
+            return new HSegment(
+                OrientedSegment.of(Lines::hSegmentOrientation, radius, cx, cy)
             );
         }
 
-        @Override
-        default SegmentOrientation orientation() { return hSegmentOrientation(); }
-    }
-
-    public interface VSegment extends OrientedSegment {
-        static VSegment of(double radius, double cx, double cy) {
-            return new VSegmentShape(radius, cx, cy);
+        public static Segment toSegment(double radius, double cx, double cy) {
+            return of(radius, cx, cy).toSegment();
         }
 
         @Override
-        default VSegment minus(double minusRadius) {
-            return of(
-                radius() - minusRadius,
-                cx(),
-                cy()
+        public HSegment minus(double minusRadius) {
+            return new HSegment(segment.minus(minusRadius));
+        }
+    }
+
+    /**
+     * Defines a refinement type of {@link OrientedSegment} with
+     * {@link Lines#vSegmentOrientation()}.
+     *
+     * @param segment oriented segment with
+     *                {@link Lines#vSegmentOrientation()}.
+     */
+    public record VSegment(
+        OrientedSegment segment
+    ) implements OrientedSegmentRefinement {
+        public static VSegment of(double radius, double cx, double cy) {
+            return new VSegment(
+                OrientedSegment.of(Lines::vSegmentOrientation, radius, cx, cy)
             );
         }
 
+        public static Segment toSegment(double radius, double cx, double cy) {
+            return of(radius, cx, cy).toSegment();
+        }
+
         @Override
-        default SegmentOrientation orientation() { return vSegmentOrientation(); }
+        public VSegment minus(double minusRadius) {
+            return new VSegment(segment.minus(minusRadius));
+        }
     }
-
-    private record SegmentShape(
-        double sx,
-        double sy,
-        double ex,
-        double ey
-    ) implements Segment {}
-
-    private record OrientedSegmentShape(
-        SegmentOrientation orientation,
-        double radius,
-        double cx,
-        double cy
-    ) implements OrientedSegment {}
-
-    private record HSegmentShape(
-        double radius,
-        double cx,
-        double cy
-    ) implements HSegment {}
-
-    private record VSegmentShape(
-        double radius,
-        double cx,
-        double cy
-    ) implements VSegment {}
 
     private Lines() {}
 }
