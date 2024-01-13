@@ -44,12 +44,18 @@ public final class Lines {
         Segment toSegment();
     }
 
+    /***
+     * Defines the angle to build an oriented segment which must be exactly in
+     * (-90, 90]deg.
+     */
     public sealed interface SegmentOrientation extends AngleMeasure {
         record Quadrantal(QuadrantalOrientation orientation) implements SegmentOrientation {
             @Override
             public double angle() { return orientation.angle(); }
         }
 
+        // 90deg, 0deg
+        // Acute (0, 90)deg + ReflexAcute (-270, 0)
         record Angle(AcuteAngle acuteAngle) implements SegmentOrientation {
             @Override
             public double angle() { return acuteAngle.value(); }
