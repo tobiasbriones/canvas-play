@@ -48,36 +48,36 @@ public final class Lines {
      * Defines the angle to build an oriented segment which must be exactly in
      * (-90, 90]deg.
      */
-    public sealed interface SegmentOrientation extends AngleMeasure {
-        record Quadrantal(QuadrantalOrientation orientation) implements SegmentOrientation {
+    public sealed interface Orientation extends AngleMeasure {
+        record Quadrantal(QuadrantalOrientation orientation) implements Orientation {
             @Override
             public double angle() { return orientation.angle(); }
         }
 
         // 90deg, 0deg
         // Acute (0, 90)deg + ReflexAcute (-270, 0)
-        record Angle(AcuteAngle acuteAngle) implements SegmentOrientation {
+        record Angle(AcuteAngle acuteAngle) implements Orientation {
             @Override
             public double angle() { return acuteAngle.value(); }
         }
     }
 
-    public static SegmentOrientation hSegmentOrientation() {
-        return new SegmentOrientation.Quadrantal(QuadrantalOrientation.Horizontal);
+    public static Orientation hSegmentOrientation() {
+        return new Orientation.Quadrantal(QuadrantalOrientation.Horizontal);
     }
 
-    public static SegmentOrientation vSegmentOrientation() {
-        return new SegmentOrientation.Quadrantal(QuadrantalOrientation.Vertical);
+    public static Orientation vSegmentOrientation() {
+        return new Orientation.Quadrantal(QuadrantalOrientation.Vertical);
     }
 
     public record OrientedSegment(
-        SegmentOrientation orientation,
+        Orientation orientation,
         double radius,
         double cx,
         double cy
     ) implements LineShape, ToSegment {
         static OrientedSegment of(
-            Supplier<? extends SegmentOrientation> orientation,
+            Supplier<? extends Orientation> orientation,
             double radius,
             double cx,
             double cy
