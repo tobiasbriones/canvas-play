@@ -44,14 +44,6 @@ public final class RoundedDrawings {
         }
     }
 
-    public static Color generateRandomColor() {
-        int red = (int) (Math.random() * 256);
-        int green = (int) (Math.random() * 256);
-        int blue = (int) (Math.random() * 256);
-
-        return Color.rgb(red, green, blue);
-    }
-
     record CanvasRoundRectangleDrawing(
         List<QuadrilateralDrawing> rectangleDrawings,
         List<OvalDrawing> arcDrawings
