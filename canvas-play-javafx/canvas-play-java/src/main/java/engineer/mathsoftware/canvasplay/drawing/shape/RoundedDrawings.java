@@ -27,7 +27,7 @@ public final class RoundedDrawings {
             ProdCanvas canvas,
             RoundedQuadrilateral quadrilateral
         ) {
-            Function<Rectangle, QuadrilateralDrawing> quadrilateralDrawing =
+            var quadrilateralDrawing =
                 canvas.drawingCtx(QuadrilateralDrawing::of);
             var ovalDrawing =
                 canvas.drawingCtx(OvalDrawing::ofArc);
