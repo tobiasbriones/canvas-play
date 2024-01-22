@@ -6,7 +6,6 @@ package engineer.mathsoftware.canvasplay.drawing.shape;
 
 import engineer.mathsoftware.canvasplay.ProdCanvas;
 import engineer.mathsoftware.canvasplay.drawing.shape.OvalDrawings.OvalDrawing;
-import engineer.mathsoftware.canvasplay.shape.Quadrilateral;
 import javafx.scene.paint.Paint;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.function.Function;
 import static engineer.mathsoftware.canvasplay.drawing.shape.QuadrilateralDrawings.QuadrilateralDrawing;
 import static engineer.mathsoftware.canvasplay.shape.Ovals.Ellipse;
 import static engineer.mathsoftware.canvasplay.shape.Ovals.EllipseArc;
-import static engineer.mathsoftware.canvasplay.shape.Quadrilateral.Rectangle;
+import static engineer.mathsoftware.canvasplay.shape.Quadrilaterals.Rectangle;
 import static engineer.mathsoftware.canvasplay.shape.rounded.RoundedPolygons.RoundedQuadrilateral;
 import static engineer.mathsoftware.canvasplay.shape.rounded.RoundedPolygons.RoundedQuadrilateral.RoundedRectangle;
 
@@ -25,7 +24,7 @@ public final class RoundedDrawings {
             ProdCanvas canvas,
             RoundedQuadrilateral quadrilateral
         ) {
-            Function<Quadrilateral, QuadrilateralDrawing> quadrilateralDrawing =
+            Function<Rectangle, QuadrilateralDrawing> quadrilateralDrawing =
                 canvas.drawingCtx(QuadrilateralDrawing::of);
             var ovalDrawing =
                 canvas.drawingCtx(OvalDrawing::ofArc);
@@ -48,7 +47,7 @@ public final class RoundedDrawings {
         List<OvalDrawing> arcDrawings
     ) implements RoundedQuadrilateralDrawing {
         static CanvasRoundRectangleDrawing of(
-            Function<? super Quadrilateral, ? extends QuadrilateralDrawing> quadrilateralDrawing,
+            Function<? super Rectangle, ? extends QuadrilateralDrawing> quadrilateralDrawing,
             Function<? super EllipseArc, ? extends OvalDrawing> arcDrawing,
             Rectangle innerRectangle,
             double arcX,

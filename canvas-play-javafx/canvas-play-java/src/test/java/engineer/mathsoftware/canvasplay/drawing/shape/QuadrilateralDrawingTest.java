@@ -10,8 +10,8 @@ import engineer.mathsoftware.canvasplay.drawing.shape.QuadrilateralDrawings.Quad
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
-import static engineer.mathsoftware.canvasplay.shape.Quadrilateral.Rectangle;
-import static engineer.mathsoftware.canvasplay.shape.rounded.RoundedPolygons.RoundedQuadrilateral.*;
+import static engineer.mathsoftware.canvasplay.shape.Quadrilaterals.Rectangle;
+import static engineer.mathsoftware.canvasplay.shape.rounded.RoundedPolygons.RoundedQuadrilateral.RoundedRectangle;
 
 class QuadrilateralDrawingTest extends CanvasTest {
     @Test

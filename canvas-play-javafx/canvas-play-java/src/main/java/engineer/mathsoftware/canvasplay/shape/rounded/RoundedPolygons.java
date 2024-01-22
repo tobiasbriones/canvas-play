@@ -6,7 +6,7 @@ package engineer.mathsoftware.canvasplay.shape.rounded;
 
 import engineer.mathsoftware.canvasplay.shape.Shape;
 
-import static engineer.mathsoftware.canvasplay.shape.Quadrilateral.*;
+import static engineer.mathsoftware.canvasplay.shape.Quadrilaterals.Rectangle;
 
 public final class RoundedPolygons {
     public sealed interface RoundedQuadrilateral extends Shape {

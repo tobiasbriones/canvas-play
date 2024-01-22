@@ -4,27 +4,24 @@
 
 package engineer.mathsoftware.canvasplay.drawing.shape;
 
-import engineer.mathsoftware.canvasplay.shape.Quadrilateral;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
-import static engineer.mathsoftware.canvasplay.shape.Quadrilateral.*;
+import static engineer.mathsoftware.canvasplay.shape.Quadrilaterals.Rectangle;
 
 public final class QuadrilateralDrawings {
     public interface QuadrilateralDrawing extends CommonDrawings.CommonDrawing {
         static QuadrilateralDrawing of(
             GraphicsContext ctx,
-            Quadrilateral quadrilateral
+            Rectangle rectangle
         ) {
-            return switch (quadrilateral) {
-                case Rectangle rectangle -> new CanvasRectangleDrawing(
-                    ctx,
-                    rectangle.width(),
-                    rectangle.height(),
-                    rectangle.cx(),
-                    rectangle.cy()
-                );
-            };
+            return new CanvasRectangleDrawing(
+                ctx,
+                rectangle.width(),
+                rectangle.height(),
+                rectangle.cx(),
+                rectangle.cy()
+            );
         }
     }
 
@@ -48,5 +45,5 @@ public final class QuadrilateralDrawings {
         }
     }
 
-    private QuadrilateralDrawings() {}
+    private QuadrilateralDrawings() { }
 }

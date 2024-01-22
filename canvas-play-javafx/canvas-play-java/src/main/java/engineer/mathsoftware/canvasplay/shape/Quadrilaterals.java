@@ -5,6 +5,19 @@
 package engineer.mathsoftware.canvasplay.shape;
 
 public final class Quadrilaterals {
+    public interface QuadrilateralShape extends Shape { }
+
+    public record Rectangle(
+        double width,
+        double height,
+        double cx,
+        double cy
+    ) implements QuadrilateralShape {
+        @Override
+        public double area() {
+            return width * height;
+        }
+    }
 
     private Quadrilaterals() { }
 }
