@@ -10,9 +10,10 @@ import engineer.mathsoftware.canvasplay.drawing.shape.TriangleDrawings.TriangleD
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
-import static engineer.mathsoftware.canvasplay.shape.Triangle.*;
-import static engineer.mathsoftware.canvasplay.shape.Triangle.EquilateralTriangle;
-import static engineer.mathsoftware.canvasplay.shape.Triangle.SQRT_3;
+import static engineer.mathsoftware.canvasplay.drawing.shape.RoundedDrawings.RoundedTriangleDrawing;
+import static engineer.mathsoftware.canvasplay.shape.Triangles.EquilateralTriangle;
+import static engineer.mathsoftware.canvasplay.shape.Triangles.SQRT_3;
+import static engineer.mathsoftware.canvasplay.shape.rounded.RoundedPolygons.RoundedTriangle;
 
 class TriangleDrawingTest extends CanvasTest {
     @Test
@@ -64,7 +65,7 @@ class TriangleDrawingTest extends CanvasTest {
             var prodCanvas = new FxProdCanvas(canvas, 1.0);
 
             prodCanvas
-                .drawingCtx(TriangleDrawing::of)
+                .drawing(RoundedTriangleDrawing::of)
                 .apply(
                     new RoundedTriangle(
                         new EquilateralTriangle(

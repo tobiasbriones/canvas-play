@@ -6,6 +6,8 @@ package engineer.mathsoftware.canvasplay.drawing.shape;
 
 import engineer.mathsoftware.canvasplay.ProdCanvas;
 import engineer.mathsoftware.canvasplay.drawing.shape.OvalDrawings.OvalDrawing;
+import engineer.mathsoftware.canvasplay.shape.Lines;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
 import java.util.List;
@@ -17,6 +19,7 @@ import static engineer.mathsoftware.canvasplay.shape.Ovals.EllipseArc;
 import static engineer.mathsoftware.canvasplay.shape.Quadrilaterals.Rectangle;
 import static engineer.mathsoftware.canvasplay.shape.rounded.RoundedPolygons.RoundedQuadrilateral;
 import static engineer.mathsoftware.canvasplay.shape.rounded.RoundedPolygons.RoundedQuadrilateral.RoundedRectangle;
+import static engineer.mathsoftware.canvasplay.shape.rounded.RoundedPolygons.RoundedTriangle;
 
 public final class RoundedDrawings {
     public interface RoundedQuadrilateralDrawing extends CommonDrawings.CommonDrawing {
@@ -40,6 +43,23 @@ public final class RoundedDrawings {
                     );
             };
         }
+    }
+
+    public interface RoundedTriangleDrawing extends CommonDrawings.CommonDrawing {
+        static RoundedTriangleDrawing of(
+            ProdCanvas canvas,
+            RoundedTriangle rt
+        ) {
+            return new CanvasRoundTriangleDrawing(
+                canvas.ctx(),
+                rt.sides().base(),
+                rt.sides().left(),
+                rt.sides().right(),
+                rt.triangle().height(),
+                rt.arc()
+            );
+        }
+
     }
 
     record CanvasRoundRectangleDrawing(
@@ -157,6 +177,60 @@ public final class RoundedDrawings {
         public void stroke(Paint color) {
             rectangleDrawings.forEach(rectangle -> rectangle.stroke(color));
             arcDrawings.forEach(arc -> arc.stroke(color));
+        }
+    }
+
+    record CanvasRoundTriangleDrawing(
+        GraphicsContext ctx,
+        Lines.HSegment base,
+        Lines.Segment left,
+        Lines.Segment right,
+        double height,
+        double arc
+    ) implements RoundedTriangleDrawing {
+        @Override
+        public void fill(Paint color) {
+            ctx.setFill(color);
+            trace();
+            ctx.fill();
+        }
+
+        @Override
+        public void stroke(Paint color) {
+            ctx.setStroke(color);
+            trace();
+            ctx.stroke();
+        }
+
+        void trace() {
+            ctx.beginPath();
+            ctx.moveTo(base.sx(), base.cy());
+            ctx.lineTo(base.ex(), base.cy());
+
+            ctx.quadraticCurveTo(
+                base.ex() + arc,
+                base.cy(),
+                right.ex(),
+                right.ey()
+            );
+
+            ctx.lineTo(right.sx(), right.sy());
+
+            ctx.quadraticCurveTo(
+                base.cx(),
+                base.cy() - height,
+                left.ex(),
+                left.ey()
+            );
+
+            ctx.lineTo(left.sx(), left.sy());
+
+            ctx.quadraticCurveTo(
+                base.sx() - arc,
+                base.cy(),
+                base.sx(),
+                base.cy()
+            );
         }
     }
 

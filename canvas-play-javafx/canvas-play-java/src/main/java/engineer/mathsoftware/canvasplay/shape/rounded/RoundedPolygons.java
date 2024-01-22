@@ -7,6 +7,8 @@ package engineer.mathsoftware.canvasplay.shape.rounded;
 import engineer.mathsoftware.canvasplay.shape.Shape;
 
 import static engineer.mathsoftware.canvasplay.shape.Quadrilaterals.Rectangle;
+import static engineer.mathsoftware.canvasplay.shape.Triangles.EquilateralTriangle;
+import static engineer.mathsoftware.canvasplay.shape.Triangles.Sides;
 
 public final class RoundedPolygons {
     public sealed interface RoundedQuadrilateral extends Shape {
@@ -25,5 +27,23 @@ public final class RoundedPolygons {
         }
     }
 
-    private RoundedPolygons() {}
+    // TODO some API has to be tuned, remember that a rounded triangle is not
+    //  a triangle (in general too for any rounded shape)
+    public record RoundedTriangle(EquilateralTriangle triangle, double arc) implements Shape {
+        @Override
+        public double area() {
+            // TODO implement if needed
+            return triangle.area();
+        }
+
+        public double height() {
+            return triangle.height();
+        }
+
+        public Sides sides() {
+            return triangle.sides().minus(arc);
+        }
+    }
+
+    private RoundedPolygons() { }
 }
