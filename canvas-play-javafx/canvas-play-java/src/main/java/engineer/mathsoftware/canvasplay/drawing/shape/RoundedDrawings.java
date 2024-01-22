@@ -6,19 +6,18 @@ package engineer.mathsoftware.canvasplay.drawing.shape;
 
 import engineer.mathsoftware.canvasplay.ProdCanvas;
 import engineer.mathsoftware.canvasplay.drawing.shape.OvalDrawings.OvalDrawing;
-import engineer.mathsoftware.canvasplay.shape.Oval;
 import engineer.mathsoftware.canvasplay.shape.Quadrilateral;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.util.List;
 import java.util.function.Function;
 
-import static engineer.mathsoftware.canvasplay.drawing.shape.QuadrilateralDrawings.*;
-import static engineer.mathsoftware.canvasplay.shape.Oval.*;
-import static engineer.mathsoftware.canvasplay.shape.Quadrilateral.*;
-import static engineer.mathsoftware.canvasplay.shape.rounded.RoundedPolygons.*;
-import static engineer.mathsoftware.canvasplay.shape.rounded.RoundedPolygons.RoundedQuadrilateral.*;
+import static engineer.mathsoftware.canvasplay.drawing.shape.QuadrilateralDrawings.QuadrilateralDrawing;
+import static engineer.mathsoftware.canvasplay.shape.Ovals.Ellipse;
+import static engineer.mathsoftware.canvasplay.shape.Ovals.EllipseArc;
+import static engineer.mathsoftware.canvasplay.shape.Quadrilateral.Rectangle;
+import static engineer.mathsoftware.canvasplay.shape.rounded.RoundedPolygons.RoundedQuadrilateral;
+import static engineer.mathsoftware.canvasplay.shape.rounded.RoundedPolygons.RoundedQuadrilateral.RoundedRectangle;
 
 public final class RoundedDrawings {
     public interface RoundedQuadrilateralDrawing extends CommonDrawings.CommonDrawing {
@@ -29,7 +28,7 @@ public final class RoundedDrawings {
             Function<Quadrilateral, QuadrilateralDrawing> quadrilateralDrawing =
                 canvas.drawingCtx(QuadrilateralDrawing::of);
             var ovalDrawing =
-                canvas.drawingCtx(OvalDrawing::of);
+                canvas.drawingCtx(OvalDrawing::ofArc);
 
             return switch (quadrilateral) {
                 case RoundedRectangle(var rectangle, var arcX, var arcY) ->
@@ -50,7 +49,7 @@ public final class RoundedDrawings {
     ) implements RoundedQuadrilateralDrawing {
         static CanvasRoundRectangleDrawing of(
             Function<? super Quadrilateral, ? extends QuadrilateralDrawing> quadrilateralDrawing,
-            Function<? super Oval, ? extends OvalDrawing> ovalDrawing,
+            Function<? super EllipseArc, ? extends OvalDrawing> arcDrawing,
             Rectangle innerRectangle,
             double arcX,
             double arcY
@@ -97,44 +96,52 @@ public final class RoundedDrawings {
                     )
                 ),
                 List.of(
-                    ovalDrawing.apply( // Left-Top Arc
+                    arcDrawing.apply( // Left-Top Arc
                         new EllipseArc(
-                            arcX,
-                            arcY,
+                            new Ellipse(
+                                arcX,
+                                arcY,
+                                innerRectangle.cx() - semiWidth,
+                                innerRectangle.cy() - semiHeight
+                            ),
                             90.0,
-                            90.0,
-                            innerRectangle.cx() - semiWidth,
-                            innerRectangle.cy() - semiHeight
+                            90.0
                         )
                     ),
-                    ovalDrawing.apply( // Left-Bottom Arc
+                    arcDrawing.apply( // Left-Bottom Arc
                         new EllipseArc(
-                            arcX,
-                            arcY,
+                            new Ellipse(
+                                arcX,
+                                arcY,
+                                innerRectangle.cx() - semiWidth,
+                                innerRectangle.cy() + semiHeight
+                            ),
                             180.0,
-                            90.0,
-                            innerRectangle.cx() - semiWidth,
-                            innerRectangle.cy() + semiHeight
+                            90.0
                         )
                     ),
-                    ovalDrawing.apply( // Right-Top Arc
+                    arcDrawing.apply( // Right-Top Arc
                         new EllipseArc(
-                            arcX,
-                            arcY,
+                            new Ellipse(
+                                arcX,
+                                arcY,
+                                innerRectangle.cx() + semiWidth,
+                                innerRectangle.cy() - semiHeight
+                            ),
                             0.0,
-                            90.0,
-                            innerRectangle.cx() + semiWidth,
-                            innerRectangle.cy() - semiHeight
+                            90.0
                         )
                     ),
-                    ovalDrawing.apply( // Right-Bottom Arc
+                    arcDrawing.apply( // Right-Bottom Arc
                         new EllipseArc(
-                            arcX,
-                            arcY,
+                            new Ellipse(
+                                arcX,
+                                arcY,
+                                innerRectangle.cx() + semiWidth,
+                                innerRectangle.cy() + semiHeight
+                            ),
                             270.0,
-                            90.0,
-                            innerRectangle.cx() + semiWidth,
-                            innerRectangle.cy() + semiHeight
+                            90.0
                         )
                     )
                 )
@@ -154,5 +161,5 @@ public final class RoundedDrawings {
         }
     }
 
-    private RoundedDrawings() {}
+    private RoundedDrawings() { }
 }

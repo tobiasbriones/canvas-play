@@ -6,15 +6,14 @@ package engineer.mathsoftware.canvasplay.shape;
 
 import org.junit.jupiter.api.Test;
 
-import static engineer.mathsoftware.canvasplay.shape.Oval.Circle;
-import static engineer.mathsoftware.canvasplay.shape.Oval.Ellipse;
+import static engineer.mathsoftware.canvasplay.shape.Ovals.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class OvalTest {
     @Test
     void area() {
-        var circle = new Circle(5.0, 10.0, 10.0);
+        var circle = Circle.of(5.0, 10.0, 10.0);
         var circleArea = Math.PI * StrictMath.pow(5.0, 2.0);
 
         assertThat(circle.area(), is(circleArea));

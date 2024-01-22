@@ -7,10 +7,12 @@ package engineer.mathsoftware.canvasplay.drawing.shape;
 import engineer.mathsoftware.canvasplay.CanvasTest;
 import engineer.mathsoftware.canvasplay.FxProdCanvas;
 import engineer.mathsoftware.canvasplay.drawing.shape.OvalDrawings.OvalDrawing;
+import engineer.mathsoftware.canvasplay.shape.Ovals;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
-import static engineer.mathsoftware.canvasplay.shape.Oval.*;
+import static engineer.mathsoftware.canvasplay.shape.Ovals.*;
+import static engineer.mathsoftware.canvasplay.shape.Ovals.Circle;
 
 class OvalDrawingTest extends CanvasTest {
     @Test
@@ -23,9 +25,9 @@ class OvalDrawingTest extends CanvasTest {
             prodCanvas
                 .drawingCtx(OvalDrawing::of)
                 .apply(
-                    new Circle(
-                        100.0, CANVAS_WIDTH / 2.0, CANVAS_HEIGHT / 2.0
-                    ))
+                    Circle.of(100.0, CANVAS_WIDTH / 2.0, CANVAS_HEIGHT / 2.0)
+                        .ellipse()
+                )
                 .fill(color);
         });
 

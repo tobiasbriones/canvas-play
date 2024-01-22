@@ -14,9 +14,10 @@ import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
 import static engineer.mathsoftware.canvasplay.composition.model.Rulers.*;
-import static engineer.mathsoftware.canvasplay.drawing.CanvasStates.*;
-import static engineer.mathsoftware.canvasplay.drawing.model.RulerDrawings.*;
-import static engineer.mathsoftware.canvasplay.shape.Oval.*;
+import static engineer.mathsoftware.canvasplay.drawing.CanvasStates.drawingText;
+import static engineer.mathsoftware.canvasplay.drawing.model.RulerDrawings.MeasureDrawing;
+import static engineer.mathsoftware.canvasplay.drawing.model.RulerDrawings.RulerDrawing;
+import static engineer.mathsoftware.canvasplay.shape.Ovals.Circle;
 
 class RulerDrawingTest extends CanvasTest {
     @Test
@@ -56,7 +57,9 @@ class RulerDrawingTest extends CanvasTest {
             prodCanvas
                 .drawingCtx(OvalDrawing::of)
                 .apply(
-                    new Circle(50.0, CANVAS_WIDTH / 2.0, CANVAS_HEIGHT / 2.0))
+                    Circle.of(50.0, CANVAS_WIDTH / 2.0, CANVAS_HEIGHT / 2.0)
+                        .ellipse()
+                )
                 .fill(Color.CHOCOLATE);
 
             // Draw a measure encompassing the circle bounds, and leverage
